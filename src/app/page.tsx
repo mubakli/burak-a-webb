@@ -1,4 +1,4 @@
-import Head from "next/head";
+// import Head from "next/head";
 
 export default function Home() {
   return (
@@ -9,7 +9,7 @@ export default function Home() {
       </div>
       <div className="pl-20">
         <p>
-          Hello! I'm Burak Asarcıklı. I am second-year computer engineering
+          Hello! I m Burak Asarcıklı. I am second-year computer engineering
           student.
         </p>
       </div>
