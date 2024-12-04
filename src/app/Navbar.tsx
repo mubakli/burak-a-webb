@@ -9,31 +9,31 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <link href="/" className="text-2xl font-bold text-white">
+            <a href="/" className="text-2xl font-bold text-white">
               BuW
-            </link>
+            </a>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-4">
-            <link
+            <a
               href="#about"
               className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700"
             >
               About
-            </link>
-            <link
+            </a>
+            <a
               href="#services"
               className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700"
             >
               Projects
-            </link>
-            <link
+            </a>
+            <a
               href="#contact"
               className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700"
             >
               Contact
-            </link>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
