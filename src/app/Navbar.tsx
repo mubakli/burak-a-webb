@@ -19,21 +19,21 @@ export default function Navbar() {
           <div className="hidden md:flex space-x-4">
             <Link
               href="#about"
-              className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700"
+              className="px-3 py-2 rounded-md text-sm font-medium hover:text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-pink-500 font-bold"
             >
-              About
+              ABOUT
             </Link>
             <Link
               href="#services"
-              className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700"
+              className="px-3 py-2 rounded-md text-sm font-medium hover:text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-500 font-bold"
             >
-              Projects
+              PROJECTS
             </Link>
             <Link
               href="#contact"
-              className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700"
+              className="px-3 py-2 rounded-md text-sm font-medium hover:text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-yellow-500"
             >
-              Contact
+              CONTACT
             </Link>
           </div>
 
