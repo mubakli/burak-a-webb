@@ -19,7 +19,7 @@ export default {
       },
       fontSize: {
         "custom-size": "100px",
-        "mobile-size": "60px",
+        "mobile-size": "45px",
       },
       colors: {
         claret: "#7F1734",

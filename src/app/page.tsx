@@ -35,11 +35,11 @@ export default function Home() {
 
   return (
     <div className="selection:bg-gray-500 selection:text-black animate-slideUp">
-      <div className="text-center sm:text-left pt-40 sm:pl-20 font-bold text-mobile-size lg:text-custom-size tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-gray-500 to-white font-bold">
+      <div className=" pt-40 pl-5 sm:pl-20 font-bold text-mobile-size lg:text-custom-size tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-gray-500 to-white font-bold">
         <p>BACK-END</p>
         <p>DEVELOPER</p>
       </div>
-      <div className="pl-20 pr-20 md:mr-20 pt-10 text-xl lg:text-2xl animate-slideIn">
+      <div className="pl-5 sm:pl-20 pr-5 sm:pr-20 md:mr-20 pt-10 text-sm lg:text-2xl animate-slideIn">
         <p className="indent-4  ">
           Hi there! I&apos;m a second-year Computer Engineering student at
           Istanbul Medeniyet University, passionate about exploring the world of
