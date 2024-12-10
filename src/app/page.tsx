@@ -35,7 +35,7 @@ export default function Home() {
 
   return (
     <div className="selection:bg-gray-500 selection:text-black animate-slideUp">
-      <div className="sm:flex-col sm:justify-center pt-40 pl-200 font-bold sm:text-mobile-size lg:text-custom-size tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-gray-500 to-white font-bold">
+      <div className="sm:flex-col sm:justify-center pt-40 pl-20 font-bold sm:text-mobile-size lg:text-custom-size tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-gray-500 to-white font-bold">
         <p>BACK-END</p>
         <p>DEVELOPER</p>
       </div>
