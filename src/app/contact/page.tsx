@@ -1,5 +1,3 @@
-import Navbar from "../Navbar";
-
 export default function contact() {
   return (
     <div>
