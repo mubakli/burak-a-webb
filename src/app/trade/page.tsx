@@ -1,18 +1,19 @@
 export default function trade() {
   return (
-    <div>
+    <div className=" w-1/2 mx-auto mt-20 text-xl">
+      <p className="text-bold mb-10">Coming Soon: Virtual Trade Page 🚀</p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, in. Ut
-        similique quasi deserunt aspernatur minus, laudantium aliquam
-        repellendus tempora obcaecati ea provident ab saepe sint asperiores cum
-        iusto! Voluptas dicta veritatis illum laudantium aspernatur quae quis,
-        nulla id tempore ea magni atque dignissimos, quas ex sapiente ullam!
-        Ipsa, autem natus! Eius ex iusto perspiciatis illo quisquam asperiores
-        aliquid sapiente voluptatibus sint pariatur reiciendis iure, eaque,
-        molestiae dolores, tenetur exercitationem officia quaerat iste sit
-        velit. Laborum sed maiores nulla ducimus, sit modi doloremque pariatur
-        delectus porro, beatae dolore ut possimus, id optio consequatur velit.
-        Aliquam cupiditate blanditiis nisi beatae sapiente.
+        This page will provide an interactive and risk-free platform for users
+        to experience virtual trading. Whether you're learning how trading works
+        or just testing strategies, you'll have a virtual balance to practice
+        buying and selling items. Stay tuned as we work to bring you features
+        like:
+      </p>
+      <li>Virtual balance to simulate real trades</li>
+      <li>Easy-to-use interface for buying and selling items</li>
+      <li>Trade history and performance tracking</li>
+      <p className="mt-10">
+        Get ready to trade, learn, and have fun—all virtually! 🎉"
       </p>
     </div>
   );

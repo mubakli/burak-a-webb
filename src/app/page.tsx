@@ -50,7 +50,7 @@ export default function Home() {
           projects.
         </p>
       </div>
-      <div className="mt-20 flex items-center my-8">
+      <div className="mt-10 pt-5 flex items-center my-8">
         <div className="flex-grow border-t border-gray-300 mx-4"></div>
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-500 font-bold">
           My Projects
