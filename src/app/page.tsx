@@ -56,6 +56,34 @@ export default function Home() {
         </span>
         <div className="flex-grow border-t border-gray-300 mx-4"></div>
       </div>
+      <div className="project-section flex flex-col md:flex-row items-center md:items-start">
+        {/* Content Section */}
+        <div className="content w-full md:w-1/2 lg:w-2/3 pl-10 pt-10 pr-10">
+          <p className="text-3xl text-bold "> E-MAİL CLİENT</p>
+          <p className="text-lg leading-relaxed mt-10">
+            This Java-based email client offers a complete set of features for
+            efficient email management. Users can reply to emails, forward
+            messages, and create drafts for later use. It supports fetching and
+            managing attachments, allowing users to download, open, and save
+            files seamlessly. The client also enables navigation through
+            standard folders like Inbox, Sent, and Drafts, while displaying
+            email content, including metadata such as sender, recipient,
+            subject, and date. With its ability to manage sent emails, save
+            drafts, and handle attachments, this email client provides a robust
+            and user-friendly solution for both sending and receiving emails.
+          </p>
+        </div>
+        {/* Video Section */}
+        <div className="  flex justify-end pr-10">
+          <video
+            src="EMAIL_CLIENT_TANITIM.mp4"
+            controls
+            loop
+            muted
+            className="w-[600px] h-[400px] "
+          ></video>
+        </div>
+      </div>
     </div>
   );
 }
