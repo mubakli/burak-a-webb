@@ -1,6 +1,6 @@
 export default function trade() {
   return (
-    <div className=" w-1/2 mx-auto mt-20 text-xl">
+    <div className=" w-1/2 mx-auto mt-20 text-xl animate-slideUp">
       <p className="text-bold mb-10">Coming Soon: Virtual Trade Page 🚀</p>
       <p>
         This page will provide an interactive and risk-free platform for users

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function about() {
   return (
-    <div className="mt-10 ml-10 flex">
+    <div className="mt-10 ml-10 flex animate-slideUp">
       <Image
         src="/Myphoto.jpg" // Image path from the public folder
         alt="Example Image" // Alt text for accessibility
