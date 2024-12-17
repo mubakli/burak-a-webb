@@ -39,6 +39,7 @@ export default function Home() {
         <p>BACK-END</p>
         <p>DEVELOPER</p>
       </div>
+
       <div className="pl-5 sm:pl-20 pr-5 sm:pr-20 md:mr-20 pt-10 text-sm lg:text-2xl animate-slideIn">
         <p className="indent-4  ">
           Hi there! I&apos;m a second-year Computer Engineering student at
@@ -60,7 +61,7 @@ export default function Home() {
         {/* Content Section */}
         <div className="content w-full md:w-1/2 lg:w-2/3 pl-10 pt-10 pr-10">
           <p className="text-3xl text-bold "> E-MAİL CLİENT</p>
-          <p className="text-lg leading-relaxed mt-10">
+          <p className="text-sm md:text-lg leading-relaxed mt-10 ">
             This Java-based email client offers a complete set of features for
             efficient email management. Users can reply to emails, forward
             messages, and create drafts for later use. It supports fetching and

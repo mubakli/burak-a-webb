@@ -10,15 +10,26 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="#home" className="text-2xl font-bold text-white">
+            <Link href="/" className="text-2xl font-bold text-white">
               BuW
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-4">
+          <div className=" hidden md:flex px-3 py-2 rounded-md text-sm font-medium ">
+            {/* Virtual Trade Link with Ping Icon */}
+            <div className="relative px-3 py-2 rounded-md">
+              <div className="absolute -top-0 -right-0 w-2 h-2 bg-red-500 rounded-full animate-ping"></div>
+              <div className="absolute -top-0 -right-0 w-2 h-2 bg-red-500 rounded-full"></div>
+              <Link
+                href="trade"
+                className="animate-pulse text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-pink-500 font-bold"
+              >
+                VIRTUAL TRADE
+              </Link>
+            </div>
             <Link
-              href="#about"
+              href="about"
               className="px-3 py-2 rounded-md text-sm font-medium hover:text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-pink-500 font-bold"
             >
               ABOUT
@@ -30,7 +41,7 @@ export default function Navbar() {
               PROJECTS
             </Link>
             <Link
-              href="#contact"
+              href="contact"
               className="px-3 py-2 rounded-md text-sm font-medium hover:text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-yellow-500"
             >
               CONTACT
