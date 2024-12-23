@@ -86,20 +86,30 @@ export default function Navbar() {
       {isOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <div className="relative px-3 py-2 rounded-md">
+              <div className="absolute -top-0 -right-0 w-2 h-2 bg-red-500 rounded-full animate-ping"></div>
+              <div className="absolute -top-0 -right-0 w-2 h-2 bg-red-500 rounded-full"></div>
+              <Link
+                href="trade"
+                className="animate-pulse text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-pink-500 font-bold"
+              >
+                VIRTUAL TRADE
+              </Link>
+            </div>
             <Link
-              href="#about"
+              href="about"
               className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700"
             >
               About
             </Link>
             <Link
-              href="#services"
+              href="services"
               className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700"
             >
               Projects
             </Link>
             <Link
-              href="#contact"
+              href="contact"
               className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700"
             >
               Contact
