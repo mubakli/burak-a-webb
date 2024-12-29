@@ -1,0 +1,45 @@
+An error occured:  MongoServerSelectionError: 404218ED01000000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:ssl/record/rec_layer_s3.c:908:SSL alert number 80
+
+    at Topology.selectServer (/Users/m/burak-a-webb/node_modules/mongodb/lib/sdam/topology.js:320:38)
+    at async Topology._connect (/Users/m/burak-a-webb/node_modules/mongodb/lib/sdam/topology.js:204:28)
+    at async Topology.connect (/Users/m/burak-a-webb/node_modules/mongodb/lib/sdam/topology.js:156:13)
+    at async topologyConnect (/Users/m/burak-a-webb/node_modules/mongodb/lib/mongo_client.js:233:17)
+    at async MongoClient._connect (/Users/m/burak-a-webb/node_modules/mongodb/lib/mongo_client.js:246:13)
+    at async MongoClient.connect (/Users/m/burak-a-webb/node_modules/mongodb/lib/mongo_client.js:171:13)
+    at async main (/Users/m/burak-a-webb/src/lib/db.js:10:5) {
+  reason: TopologyDescription {
+    type: 'ReplicaSetNoPrimary',
+    servers: Map(3) {
+      'vtradedb-shard-00-00.oifqp.mongodb.net:27017' => [ServerDescription],
+      'vtradedb-shard-00-01.oifqp.mongodb.net:27017' => [ServerDescription],
+      'vtradedb-shard-00-02.oifqp.mongodb.net:27017' => [ServerDescription]
+    },
+    stale: false,
+    compatible: true,
+    heartbeatFrequencyMS: 10000,
+    localThresholdMS: 15,
+    setName: 'atlas-rc0xm2-shard-0',
+    maxElectionId: null,
+    maxSetVersion: null,
+    commonWireVersion: 0,
+    logicalSessionTimeoutMinutes: null
+  },
+  code: undefined,
+  [Symbol(errorLabels)]: Set(0) {},
+  [cause]: MongoNetworkError: 404218ED01000000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:ssl/record/rec_layer_s3.c:908:SSL alert number 80
+  
+      at TLSSocket.<anonymous> (/Users/m/burak-a-webb/node_modules/mongodb/lib/cmap/connect.js:285:44)
+      at Object.onceWrapper (node:events:628:26)
+      at TLSSocket.emit (node:events:513:28)
+      at emitErrorNT (node:internal/streams/destroy:170:8)
+      at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    [Symbol(errorLabels)]: Set(1) { 'ResetPool' },
+    [cause]: [Error: 404218ED01000000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:ssl/record/rec_layer_s3.c:908:SSL alert number 80
+    ] {
+      library: 'SSL routines',
+      reason: 'tlsv1 alert internal error',
+      code: 'ERR_SSL_TLSV1_ALERT_INTERNAL_ERROR'
+    }
+  }
+}

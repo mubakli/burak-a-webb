@@ -4,6 +4,7 @@ import "./globals.css";
 
 // Import from components
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -35,6 +36,9 @@ export default function RootLayout({
         <Navbar />
         {/* Main content */}
         <main>{children}</main>
+        <div className="flex flex-col min-h-screen">
+          <Footer />
+        </div>
       </body>
     </html>
   );
