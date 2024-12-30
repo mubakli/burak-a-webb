@@ -41,6 +41,43 @@ export default function Trade() {
     setShowSignUpModal(false);
   };
 
+  const handleSignUpSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const email = (document.getElementById("email") as HTMLInputElement).value;
+    const password = (
+      document.getElementById("newPassword") as HTMLInputElement
+    ).value;
+
+    //Send POST request to sign-up API
+    try {
+      const response = await fetch("/api/auth/signUp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        //Successful sign-up
+        alert("Sign-up successful!");
+        closeSignUpModal();
+      } else {
+        //Handle errors from the server
+        setErrorMessage(result.message || "An error occured.");
+      }
+    } catch (error) {
+      console.error("Error singing up: ", error);
+      setErrorMessage("An error occured while signing up.");
+    }
+  };
+
   return (
     <div className="relative">
       {/* Sign In Button */}
@@ -124,7 +161,7 @@ export default function Trade() {
             </form>
             <div className="mt-5 flex-grow border-t border-gray-300 mx-2">
               <p className="flex justify-center">
-                Don't have account{" "}
+                Don&apos;t have account{" "}
                 <button
                   className="mx-2 text underline underline-offset-3 text-pink-500"
                   onClick={handleSignUp}
@@ -136,16 +173,12 @@ export default function Trade() {
           </div>
         </div>
       )}
+      {/* Sign Up Modal */}
       {showSignUpModal && (
         <div className="fixed inset-0 text-white bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-gray-800 p-8 rounded-lg w-96">
             <h2 className="text-xl font-bold mb-4">Sign Up</h2>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert("Sign-Up functionality coming soon!");
-              }}
-            >
+            <form onSubmit={handleSignUpSubmit}>
               <div className="mb-4">
                 <label
                   htmlFor="newUsername"
@@ -185,6 +218,9 @@ export default function Trade() {
                   required
                 />
               </div>
+              {errorMessage && (
+                <p className="text-red-500 text-sm">{errorMessage}</p>
+              )}
               <div className="flex justify-end mt-4">
                 <button
                   type="button"
