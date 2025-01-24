@@ -4,12 +4,14 @@ import bcrypt from "bcryptjs";
 export async function POST(req) {
   try {
     // Extract email and password from the request body
-    const { email, password } = await req.json();
+    const { username, email, password } = await req.json();
 
     // Validate input data
-    if (!email || !password) {
+    if (!username || !email || !password) {
       return new Response(
-        JSON.stringify({ message: "Email and password are required." }),
+        JSON.stringify({
+          message: "Email, password and username are required.",
+        }),
         { status: 400 }
       );
     }
@@ -32,6 +34,7 @@ export async function POST(req) {
 
     // Insert the new user into the database
     const result = await collection.insertOne({
+      username,
       email,
       password: hashedPassword,
     });

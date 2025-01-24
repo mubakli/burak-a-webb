@@ -41,12 +41,16 @@ export default function Trade() {
     setShowSignUpModal(false);
   };
 
+  //Handle Sing up with database
   const handleSignUpSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const email = (document.getElementById("email") as HTMLInputElement).value;
     const password = (
       document.getElementById("newPassword") as HTMLInputElement
+    ).value;
+    const username = (
+      document.getElementById("newUsername") as HTMLInputElement
     ).value;
 
     //Send POST request to sign-up API
@@ -57,6 +61,7 @@ export default function Trade() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          username: username,
           email: email,
           password: password,
         }),
@@ -117,12 +122,12 @@ export default function Trade() {
             <h2 className="text-xl font-bold mb-4">Sign In</h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
-                <label htmlFor="username" className="block text-sm font-medium">
-                  Username
+                <label htmlFor="email" className="block text-sm font-medium">
+                  Email
                 </label>
                 <input
                   type="text"
-                  id="username"
+                  id="email"
                   className="mt-1 p-2 w-full border border-gray-300 rounded-md bg-gray-600"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
