@@ -118,7 +118,8 @@ export default function Trade() {
     <div className="relative">
       {/* Sign In Button */}
       <button
-        className="absolute shadow shadow-gray-500 border border-gray-700 top-1 right-4 mr-20 px-4 py-1 font-bold hover:scale-105 hover:shadow-gray-400"
+        //className="absolute shadow shadow-gray-500 border border-gray-700 top-1 right-4 mr-20 px-4 py-1 font-bold hover:scale-105 hover:shadow-gray-400"
+        className="absolute shadow shadow-gray-500 border border-gray-700 top-1 right-4  mr-20 px-4 py-1 font-bold hover:scale-105 hover:shadow-gray-400"
         onClick={handleSignIn}
       >
         Sign In

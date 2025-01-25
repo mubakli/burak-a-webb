@@ -75,7 +75,7 @@ export default function Home() {
           </p>
         </div>
         {/* Video Section */}
-        <div className="  flex justify-end pr-10">
+        <div className=" mx-4 md:mx-0 md:flex justify-end md:pr-10">
           <video
             src="EMAIL_CLIENT_TANITIM.mp4"
             controls
