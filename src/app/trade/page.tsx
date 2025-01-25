@@ -160,6 +160,7 @@ export default function Trade() {
                   type="email"
                   id="signInEmail"
                   className="mt-1 p-2 w-full border border-gray-300 rounded-md bg-gray-600"
+                  value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
@@ -171,6 +172,7 @@ export default function Trade() {
                   type="password"
                   id="password"
                   className="mt-1 p-2 w-full border border-gray-300 rounded-md bg-gray-600"
+                  value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
