@@ -15,8 +15,8 @@ if (!global._mongoClientPromise) {
   client = new MongoClient(uri, {
     tls: true,
     tlsInsecure: false,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
   });
   global._mongoClientPromise = client.connect();
 }

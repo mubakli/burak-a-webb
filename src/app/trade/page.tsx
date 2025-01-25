@@ -20,17 +20,47 @@ export default function Trade() {
     setErrorMessage("");
   };
 
-  // Handle form submit
-  const handleSubmit = (e: React.FormEvent) => {
+  // Handle Sing-in submit
+  const handleSignInSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Mock authentication logic (you can replace this with real authentication)
-    if (username === "admin" && password === "password123") {
-      alert("Successfully signed in!");
-      closeModal();
-    } else {
-      setErrorMessage("Invalid username or password.");
+    const email = (document.getElementById("signInEmail") as HTMLInputElement)
+      .value;
+    const password = (document.getElementById("password") as HTMLInputElement)
+      .value;
+
+    try {
+      const response = await fetch("/api/auth/signUp", {
+        //signUP because this is folder name this need to fix!!!
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert("Sign-In successfull!!");
+      } else {
+        setErrorMessage(result.message || "An error occurred.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setErrorMessage("Failed to connect to the server.");
     }
+
+    // if (username === "admin" && password === "password123") {
+    //   alert("Successfully signed in!");
+    //   closeModal();
+    // } else {
+    //   setErrorMessage("Invalid username or password.");
+    // }
   };
 
   const handleSignUp = () => {
@@ -45,7 +75,8 @@ export default function Trade() {
   const handleSignUpSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const email = (document.getElementById("email") as HTMLInputElement).value;
+    const email = (document.getElementById("signUpEmail") as HTMLInputElement)
+      .value;
     const password = (
       document.getElementById("newPassword") as HTMLInputElement
     ).value;
@@ -120,16 +151,15 @@ export default function Trade() {
         <div className="fixed inset-0  text-white bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-gray-800 p-8 rounded-lg w-96">
             <h2 className="text-xl font-bold mb-4">Sign In</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSignInSubmit}>
               <div className="mb-4">
                 <label htmlFor="email" className="block text-sm font-medium">
                   Email
                 </label>
                 <input
-                  type="text"
-                  id="email"
+                  type="email"
+                  id="signInEmail"
                   className="mt-1 p-2 w-full border border-gray-300 rounded-md bg-gray-600"
-                  value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
@@ -141,7 +171,6 @@ export default function Trade() {
                   type="password"
                   id="password"
                   className="mt-1 p-2 w-full border border-gray-300 rounded-md bg-gray-600"
-                  value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
@@ -204,7 +233,7 @@ export default function Trade() {
                 </label>
                 <input
                   type="email"
-                  id="email"
+                  id="signUpEmail"
                   className="mt-1 p-2 w-full border border-gray-300 rounded-md bg-gray-600"
                   required
                 />
