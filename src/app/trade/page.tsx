@@ -119,7 +119,7 @@ export default function Trade() {
       {/* Sign In Button */}
       <button
         //className="absolute shadow shadow-gray-500 border border-gray-700 top-1 right-4 mr-20 px-4 py-1 font-bold hover:scale-105 hover:shadow-gray-400"
-        className="absolute shadow shadow-gray-500 border border-gray-700 top-1 right-4  mr-20 px-4 py-1 font-bold hover:scale-105 hover:shadow-gray-400"
+        className="absolute shadow shadow-gray-500 border border-gray-700 top-1 right-1 md:right-4  md:mr-5 md:mr-20 px-4 py-1 font-bold hover:scale-105 hover:shadow-gray-400"
         onClick={handleSignIn}
       >
         Sign In
@@ -130,14 +130,14 @@ export default function Trade() {
         <p className="text-sm font-bold lg:text-xl lg:mb-10">
           Coming Soon: Virtual Trade Page 🚀
         </p>
-        <p>
+        <p className=" max-w-[75%]">
           This page will provide an interactive and risk-free platform for users
           to experience virtual trading. Whether you&apos;re learning how
           trading works or just testing strategies, you&apos;ll have a virtual
           balance to practice buying and selling items. Stay tuned as we work to
           bring you features like:
         </p>
-        <ul className="list-disc pl-5">
+        <ul className=" list-disc pl-5">
           <li>Virtual balance to simulate real trades</li>
           <li>Easy-to-use interface for buying and selling items</li>
           <li>Trade history and performance tracking</li>
