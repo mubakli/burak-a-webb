@@ -35,7 +35,7 @@ export default function Navbar() {
               ABOUT
             </Link>
             <Link
-              href="#services"
+              href="/#scrollTo"
               className="px-3 py-2 rounded-md text-sm font-medium hover:text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-500 font-bold"
             >
               PROJECTS
@@ -103,7 +103,7 @@ export default function Navbar() {
               About
             </Link>
             <Link
-              href="services"
+              href="/#project"
               className="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700"
             >
               Projects

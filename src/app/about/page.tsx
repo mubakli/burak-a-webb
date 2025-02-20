@@ -2,8 +2,8 @@ import Image from "next/image";
 
 export default function About() {
   return (
-    <div className="  place-items-center ">
-      <div className="  mx-3 my-3 md:mt-10 md:ml-10 md:flex  animate-slideUp">
+    <div className=" place-items-center ">
+      <div className="  mx-3 my-3 md:mt-10 md:ml-10 md:flex animate-slideUp">
         <Image
           src="/Myphoto.jpg" // Image path from the public folder
           alt="Example Image" // Alt text for accessibility

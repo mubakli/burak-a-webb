@@ -52,7 +52,10 @@ export default function Home() {
       </div>
       <div className="mt-10 pt-5 flex items-center my-8">
         <div className="flex-grow border-t border-gray-300 mx-4"></div>
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-500 font-bold">
+        <span
+          id="scrollTo"
+          className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-green-500 font-bold"
+        >
           My Projects
         </span>
         <div className="flex-grow border-t border-gray-300 mx-4"></div>
@@ -84,6 +87,24 @@ export default function Home() {
             className="w-[600px] h-[400px] "
           ></video>
         </div>
+      </div>
+
+      <div className="content w-full  pl-10 pt-10 pr-10">
+        <p className="text-3xl text-bold "> VİRTUAL TRADE (On Going...) </p>
+        <p className="text-sm md:text-lg leading-relaxed mt-10 ">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad aut ipsam,
+          molestiae nemo est quisquam fuga aperiam incidunt provident
+          voluptatibus saepe voluptas, iste neque sit veniam eos praesentium
+          delectus repellat. Aliquam repellat quod animi optio. Soluta accusamus
+          repudiandae, facilis aspernatur fugiat dolorem repellendus quibusdam
+          expedita deserunt dignissimos placeat quisquam distinctio nam
+          obcaecati aperiam vel. Corporis error repellendus porro minima
+          voluptatum in dolores. Voluptatibus delectus porro culpa rem sapiente
+          consequatur ullam, iste asperiores ad, suscipit odit? Laboriosam
+          expedita quae explicabo quidem ullam non eum, possimus facilis dolorem
+          laborum nam ipsam minus temporibus corporis minima tempore. Nam earum
+          placeat non reprehenderit cum?
+        </p>
       </div>
     </div>
   );

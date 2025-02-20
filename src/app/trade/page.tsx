@@ -1,13 +1,14 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import CryptoPrices from "@/lib/cryptoPrices";
 
 export default function Trade() {
   // State for modal visibility and user credentials
+  const [showUsingInContent, setShowUsingInContent] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [showSignUpModal, setShowSignUpModal] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [showUserModal, setShowUserModal] = useState(false);
 
   // Handle sign in button click
   const handleSignIn = () => {
@@ -24,7 +25,7 @@ export default function Trade() {
   const handleSignInSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Mock authentication logic (you can replace this with real authentication)
+    //get elements
     const email = (document.getElementById("signInEmail") as HTMLInputElement)
       .value;
     const password = (document.getElementById("password") as HTMLInputElement)
@@ -47,6 +48,9 @@ export default function Trade() {
 
       if (response.ok) {
         alert("Sign-In successfull!!");
+        setShowUserModal(true);
+        setShowModal(false);
+        setShowUsingInContent(false);
       } else {
         setErrorMessage(result.message || "An error occurred.");
       }
@@ -54,13 +58,6 @@ export default function Trade() {
       console.error("Error:", error);
       setErrorMessage("Failed to connect to the server.");
     }
-
-    // if (username === "admin" && password === "password123") {
-    //   alert("Successfully signed in!");
-    //   closeModal();
-    // } else {
-    //   setErrorMessage("Invalid username or password.");
-    // }
   };
 
   const handleSignUp = () => {
@@ -104,6 +101,9 @@ export default function Trade() {
         //Successful sign-up
         alert("Sign-up successful!");
         closeSignUpModal();
+        setShowUserModal(true);
+        setShowModal(false);
+        setShowUsingInContent(false);
       } else {
         //Handle errors from the server
         setErrorMessage(result.message || "An error occured.");
@@ -116,36 +116,40 @@ export default function Trade() {
 
   return (
     <div className="relative">
-      {/* Sign In Button */}
-      <button
-        //className="absolute shadow shadow-gray-500 border border-gray-700 top-1 right-4 mr-20 px-4 py-1 font-bold hover:scale-105 hover:shadow-gray-400"
-        className="absolute shadow shadow-gray-500 border border-gray-700 top-1 right-1 md:right-4  md:mr-5 md:mr-20 px-4 py-1 font-bold hover:scale-105 hover:shadow-gray-400"
-        onClick={handleSignIn}
-      >
-        Sign In
-      </button>
+      {showUsingInContent && (
+        <>
+          {/* Sign In Button */}
+          <button
+            className="absolute shadow shadow-gray-500 border border-gray-700 top-1 right-1  md:right-4  md:mr-5 md:mr-20 px-4 py-1 font-bold hover:scale-105 hover:shadow-gray-400"
+            onClick={handleSignIn}
+          >
+            Sign In
+          </button>
 
-      {/* Main Content */}
-      <div className="mx-3 my-3 text-xs lg:w-1/2 lg:mx-auto lg:mt-20 lg:text-xl animate-slideUp">
-        <p className="text-sm font-bold lg:text-xl lg:mb-10">
-          Coming Soon: Virtual Trade Page 🚀
-        </p>
-        <p className=" max-w-[75%]">
-          This page will provide an interactive and risk-free platform for users
-          to experience virtual trading. Whether you&apos;re learning how
-          trading works or just testing strategies, you&apos;ll have a virtual
-          balance to practice buying and selling items. Stay tuned as we work to
-          bring you features like:
-        </p>
-        <ul className=" list-disc pl-5">
-          <li>Virtual balance to simulate real trades</li>
-          <li>Easy-to-use interface for buying and selling items</li>
-          <li>Trade history and performance tracking</li>
-        </ul>
-        <p className="text-xs lg:mt-10">
-          Get ready to trade, learn, and have fun—all virtually! 🎉
-        </p>
-      </div>
+          {/* UnSing-In Content */}
+          <div className="mx-3 my-3 text-xs lg:w-1/2 lg:mx-auto lg:mt-20 lg:text-xl animate-slideUp">
+            <p className="text-sm font-bold lg:text-xl lg:mb-10">
+              Coming Soon: Virtual Trade Page 🚀
+            </p>
+            <p className=" max-w-[75%]">
+              This page will provide an interactive and risk-free platform for
+              users to experience virtual trading. Whether you&apos;re learning
+              how trading works or just testing strategies, you&apos;ll have a
+              virtual balance to practice buying and selling items. Stay tuned
+              as we work to bring you features like:
+            </p>
+            <ul className=" list-disc pl-5">
+              <li>Virtual balance to simulate real trades</li>
+              <li>Easy-to-use interface for buying and selling items</li>
+              <li>Trade history and performance tracking</li>
+            </ul>
+            <p className="text-xs lg:mt-10">
+              Get ready to trade, learn, and have fun—all virtually! 🎉
+            </p>
+            <CryptoPrices />
+          </div>
+        </>
+      )}
 
       {/* Sign In Modal */}
       {showModal && (
@@ -161,8 +165,6 @@ export default function Trade() {
                   type="email"
                   id="signInEmail"
                   className="mt-1 p-2 w-full border border-gray-300 rounded-md bg-gray-600"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
               <div className="mb-4">
@@ -173,8 +175,6 @@ export default function Trade() {
                   type="password"
                   id="password"
                   className="mt-1 p-2 w-full border border-gray-300 rounded-md bg-gray-600"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               {errorMessage && (
@@ -277,45 +277,12 @@ export default function Trade() {
           </div>
         </div>
       )}
+      {/* User Modal */}
+      {showUserModal && (
+        <div>
+          <CryptoPrices />
+        </div>
+      )}
     </div>
   );
 }
-
-// "use client";
-// import React from "react";
-
-// export default function Trade() {
-//   return (
-//     <div className="">
-//       {/* Sign In Button */}
-//       <button
-//         className="absolute top-20 right-5 px-1 py-1 border-2 border-slate-300   text-white bg-black rounded-md hover:bg-gray-500"
-//         onClick={() => alert("Sign-In functionality coming soon!")}
-//       >
-//         Sign In
-//       </button>
-
-//       {/* Main Content */}
-//       <div className="mx-3 my-3 text-xs lg:w-1/2 lg:mx-auto lg:mt-20 lg:text-xl animate-slideUp">
-//         <p className="text-sm font-bold lg:text-xl lg:mb-10">
-//           Coming Soon: Virtual Trade Page 🚀
-//         </p>
-//         <p>
-//           This page will provide an interactive and risk-free platform for users
-//           to experience virtual trading. Whether you&apos;re learning how
-//           trading works or just testing strategies, you&apos;ll have a virtual
-//           balance to practice buying and selling items. Stay tuned as we work to
-//           bring you features like:
-//         </p>
-//         <ul className="list-disc pl-5">
-//           <li>Virtual balance to simulate real trades</li>
-//           <li>Easy-to-use interface for buying and selling items</li>
-//           <li>Trade history and performance tracking</li>
-//         </ul>
-//         <p className="text-xs lg:mt-10">
-//           Get ready to trade, learn, and have fun—all virtually! 🎉
-//         </p>
-//       </div>
-//     </div>
-//   );
-// }
