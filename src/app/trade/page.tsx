@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import CryptoPrices from "@/lib/cryptoPrices";
 
 export default function Trade() {

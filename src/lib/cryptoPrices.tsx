@@ -1,7 +1,7 @@
 "use client";
 
 import useSWR from "swr";
-import { Loader, TrendingUp, TrendingDown } from "lucide-react";
+import { Loader, TrendingUp } from "lucide-react";
 
 // Define the type for the API response
 interface PriceData {
