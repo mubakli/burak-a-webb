@@ -1,14 +1,15 @@
-import clientPromise from "../../../../lib/db";
+import connectDB from "../../../../lib/db";
 import bcrypt from "bcryptjs";
-
+import User from "../../../../User";
 export async function POST(req) {
   try {
-    // Extract email and password from the request body
+    await connectDB();
+    // // Extract email and password from the request body
     const { username, email, password } = await req.json();
     // Connect to the MongoDB database
-    const client = await clientPromise; // Resolving the MongoDB connection promise
-    const db = client.db("vTradeDB"); // Default database as per MongoDB URI
-    const collection = db.collection("Users");
+    // const client = await clientPromise; // Resolving the MongoDB connection promise
+    // const db = client.db("vTradeDB"); // Default database as per MongoDB URI
+    // const collection = db.collection("Users");
 
     // Validate input data
     if (username) {
@@ -22,7 +23,7 @@ export async function POST(req) {
       }
 
       // Check if the user already exists
-      const existingUser = await collection.findOne({ email });
+      const existingUser = await User.findOne({ email });
       if (existingUser) {
         return new Response(
           JSON.stringify({ message: "User already exists." }),
@@ -36,16 +37,20 @@ export async function POST(req) {
       const hashedPassword = await bcrypt.hash(password, 10);
 
       // Insert the new user into the database
-      const result = await collection.insertOne({
+      const newUser = new User({
         username,
         email,
         password: hashedPassword,
+        balance: 1000000, //default virtual balance
+        portfolio: [],
       });
+
+      await newUser.save();
 
       // Return success response
       return new Response(
         JSON.stringify({
-          message: `User created successfully! User ID: ${result.insertedId}`,
+          message: `User created successfully! User ID: ${newUser.insertedId}`,
         }),
         { status: 201 }
       );

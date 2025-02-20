@@ -14,7 +14,7 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Trade() {
   const { data, error } = useSWR<PriceData>("/api/prices", fetcher, {
-    refreshInterval: 300000, // Refresh every 5 seconds
+    refreshInterval: 300000, // Refresh every 5 munites
   });
 
   // UI Loading State

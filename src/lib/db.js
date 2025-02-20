@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -8,27 +8,42 @@ if (!uri) {
   throw new Error("Please add your MongoDB URI to the environment variables.");
 }
 
-let client;
-let clientPromise;
+let cached = global.mongoose || { conn: null, promise: null };
 
-if (!global._mongoClientPromise) {
-  client = new MongoClient(uri, {
-    tls: true,
-    tlsInsecure: false,
-    // useNewUrlParser: true,
-    // useUnifiedTopology: true,
-  });
-  global._mongoClientPromise = client.connect();
+async function connectDB() {
+  if (cached.conn) return cached.conn;
+
+  if (!cached.promise) {
+    cached.promise = mongoose
+      .connect(uri, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      })
+      .then((mongoose) => mongoose);
+  }
+
+  cached.conn = await cached.promise;
+  return cached.conn;
 }
+export default connectDB;
+// let client;
+// let clientPromise;
 
-clientPromise = global._mongoClientPromise;
+// if (!global._mongoClientPromise) {
+//   client = new MongoClient(uri, {
+//     tls: true,
+//     tlsInsecure: false,
+//     // useNewUrlParser: true,
+//     // useUnifiedTopology: true,
+//   });
+//   global._mongoClientPromise = client.connect();
+// }
 
-export default clientPromise;
+// clientPromise = global._mongoClientPromise;
+
+// export default clientPromise;
 
 // const { MongoClient } = require("mongodb");
-
-// const uri =
-//   "mongodb+srv://Bupropius:burak9300@vtradedb.oifqp.mongodb.net/?retryWrites=true&w=majority&appName=vtradedb";
 
 // async function main() {
 //   const client = new MongoClient(uri);
