@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import CryptoPrices from "@/lib/cryptoPrices";
+import UserUI from "./userTradeUIPage";
 
 export default function Trade() {
   // State for modal visibility and user credentials
@@ -143,11 +143,11 @@ export default function Trade() {
               <li>Easy-to-use interface for buying and selling items</li>
               <li>Trade history and performance tracking</li>
             </ul>
-            <p className="text-xs lg:mt-10">
+            <p className="text-xs lg:mt-10 lg:text-xl">
               Get ready to trade, learn, and have fun—all virtually! 🎉
             </p>
-            <CryptoPrices />
           </div>
+          <UserUI />
         </>
       )}
 
@@ -280,7 +280,7 @@ export default function Trade() {
       {/* User Modal */}
       {showUserModal && (
         <div>
-          <CryptoPrices />
+          <UserUI />
         </div>
       )}
     </div>
