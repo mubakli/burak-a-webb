@@ -66,7 +66,7 @@ export async function POST(req) {
         );
       }
 
-      const user = await collection.findOne({ email });
+      const user = await User.findOne({ email });
       if (!user) {
         return new Response(
           JSON.stringify({
