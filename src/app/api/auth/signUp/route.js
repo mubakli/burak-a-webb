@@ -6,12 +6,7 @@ export async function POST(req) {
     await connectDB();
     // // Extract email and password from the request body
     const { username, email, password } = await req.json();
-    // Connect to the MongoDB database
-    // const client = await clientPromise; // Resolving the MongoDB connection promise
-    // const db = client.db("vTradeDB"); // Default database as per MongoDB URI
-    // const collection = db.collection("Users");
 
-    // Validate input data
     if (username) {
       if (!email || !password) {
         return new Response(

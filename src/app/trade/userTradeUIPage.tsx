@@ -2,10 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { Loader, TrendingUp } from "lucide-react";
+import BuySell from "./BuySell";
+
+interface CryptoPrice {
+  usd: number;
+}
 
 interface PriceData {
-  bitcoin: { usd: number };
-  ethereum: { usd: number };
+  [key: string]: CryptoPrice;
 }
 
 export default function Trade() {
@@ -32,11 +36,6 @@ export default function Trade() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleTrade = (type: "buy" | "sell", coin: string) => {
-    alert(`${type.toUpperCase()} ${coin} clicked!`);
-    // TODO: Connect this to an API for actual trading logic
-  };
-
   if (error) {
     return (
       <div className="flex items-center justify-center h-screen text-red-500">
@@ -57,61 +56,31 @@ export default function Trade() {
   return (
     <div className="max-w-4xl mx-auto p-6 bg-gray-900 text-white rounded-xl shadow-lg">
       <h1 className="text-3xl font-bold text-center mb-6">
-        📈 Live Market Prices (Updates Every 5m)
+        Live Market Prices (Updates Every 5m)
       </h1>
 
       <div className="space-y-6">
-        {/* Bitcoin Card */}
-        <div className="flex flex-col bg-gray-800 p-6 rounded-lg shadow-lg">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <TrendingUp className="text-yellow-500 mr-2" size={24} />
-              <p className="font-semibold text-lg">Bitcoin (BTC)</p>
+        {/* All API Data Cards List */}
+        {Object.entries(data).map(([crypto, { usd }]) => (
+          <div key={crypto}>
+            <div className="flex flex-col bg-gray-800 p-6 rounded-lg shadow-lg">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <TrendingUp className="text-yellow-500 mr-2" size={24} />
+                  <p className="font-semibold text-lg capitalize">{crypto}</p>
+                </div>
+                <p className="text-xl font-bold">${usd.toFixed(2)}</p>
+              </div>
+
+              <BuySell
+                crypto={crypto}
+                price={usd}
+                // onBuy={handleBuy}
+                // onSell={handleSell}
+              />
             </div>
-            <p className="text-xl font-bold">${data.bitcoin.usd.toFixed(2)}</p>
           </div>
-
-          <div className="mt-4 flex justify-between">
-            <button
-              onClick={() => handleTrade("buy", "Bitcoin")}
-              className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-all"
-            >
-              Buy
-            </button>
-            <button
-              onClick={() => handleTrade("sell", "Bitcoin")}
-              className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg transition-all"
-            >
-              Sell
-            </button>
-          </div>
-        </div>
-
-        {/* Ethereum Card */}
-        <div className="flex flex-col bg-gray-800 p-6 rounded-lg shadow-lg">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <TrendingUp className="text-blue-500 mr-2" size={24} />
-              <p className="font-semibold text-lg">Ethereum (ETH)</p>
-            </div>
-            <p className="text-xl font-bold">${data.ethereum.usd.toFixed(2)}</p>
-          </div>
-
-          <div className="mt-4 flex justify-between">
-            <button
-              onClick={() => handleTrade("buy", "Ethereum")}
-              className="px-4 py-2 bg-green-600 hover:bg-green-700 rounded-lg transition-all"
-            >
-              Buy
-            </button>
-            <button
-              onClick={() => handleTrade("sell", "Ethereum")}
-              className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg transition-all"
-            >
-              Sell
-            </button>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );
