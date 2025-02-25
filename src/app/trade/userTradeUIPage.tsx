@@ -69,15 +69,10 @@ export default function Trade() {
                   <TrendingUp className="text-yellow-500 mr-2" size={24} />
                   <p className="font-semibold text-lg capitalize">{crypto}</p>
                 </div>
-                <p className="text-xl font-bold">${usd.toFixed(2)}</p>
+                <p className="text-xl font-bold">${usd}</p>
               </div>
 
-              <BuySell
-                crypto={crypto}
-                price={usd}
-                // onBuy={handleBuy}
-                // onSell={handleSell}
-              />
+              <BuySell crypto={crypto} price={usd} />
             </div>
           </div>
         ))}

@@ -1,6 +1,7 @@
 import connectDB from "../../../../lib/db";
 import bcrypt from "bcryptjs";
-import User from "../../../../User";
+import User from "../../../../models/User";
+
 export async function POST(req) {
   try {
     await connectDB();
@@ -21,7 +22,9 @@ export async function POST(req) {
       const existingUser = await User.findOne({ email });
       if (existingUser) {
         return new Response(
-          JSON.stringify({ message: "User already exists." }),
+          JSON.stringify({
+            message: "User already exists.",
+          }),
           {
             status: 400,
           }
@@ -46,6 +49,7 @@ export async function POST(req) {
       return new Response(
         JSON.stringify({
           message: `User created successfully! User ID: ${newUser.insertedId}`,
+          userId: newUser._id.toString(),
         }),
         { status: 201 }
       );
@@ -82,6 +86,7 @@ export async function POST(req) {
       return new Response(
         JSON.stringify({
           message: "you have signed in successfully!",
+          userId: user._id.toString(),
         }),
         { status: 200 }
       );

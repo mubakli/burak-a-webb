@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import UserUI from "./userTradeUIPage";
 
 export default function Trade() {
@@ -9,6 +9,14 @@ export default function Trade() {
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showUserModal, setShowUserModal] = useState(false);
+
+  useEffect(() => {
+    const storedUserId = sessionStorage.getItem("userId");
+    if (storedUserId) {
+      setShowUsingInContent(false);
+      setShowUserModal(true);
+    }
+  }, []);
 
   // Handle sign in button click
   const handleSignIn = () => {
@@ -32,7 +40,7 @@ export default function Trade() {
       .value;
 
     try {
-      const response = await fetch("/api/auth/signUp", {
+      const response = await fetch("/api/auth", {
         //signUP because this is folder name this need to fix!!!
         method: "POST",
         headers: {
@@ -48,6 +56,7 @@ export default function Trade() {
 
       if (response.ok) {
         alert("Sign-In successfull!!");
+        sessionStorage.setItem("userId", result.userId);
         setShowUserModal(true);
         setShowModal(false);
         setShowUsingInContent(false);
@@ -83,7 +92,7 @@ export default function Trade() {
 
     //Send POST request to sign-up API
     try {
-      const response = await fetch("/api/auth/signUp", {
+      const response = await fetch("/api/auth", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -100,6 +109,7 @@ export default function Trade() {
       if (response.ok) {
         //Successful sign-up
         alert("Sign-up successful!");
+        sessionStorage.setItem("userId", result.userId);
         closeSignUpModal();
         setShowUserModal(true);
         setShowModal(false);
@@ -148,6 +158,7 @@ export default function Trade() {
             </p>
           </div>
           <UserUI />
+          <div></div>
         </>
       )}
 
