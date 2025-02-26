@@ -10,7 +10,6 @@ const UserSchema = new mongoose.Schema({
       asset: String,
       quantity: Number,
       averagePrice: Number,
-      currentPrice: Number,
     },
   ],
 });
