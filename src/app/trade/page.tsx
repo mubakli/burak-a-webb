@@ -40,7 +40,7 @@ export default function Trade() {
       .value;
 
     try {
-      const response = await fetch("/api/auth", {
+      const response = await fetch("/api/auth/user", {
         //signUP because this is folder name this need to fix!!!
         method: "POST",
         headers: {
@@ -92,7 +92,7 @@ export default function Trade() {
 
     //Send POST request to sign-up API
     try {
-      const response = await fetch("/api/auth", {
+      const response = await fetch("/api/auth/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
