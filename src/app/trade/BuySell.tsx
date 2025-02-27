@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface BuySellProps {
   crypto: string;
@@ -11,11 +11,37 @@ export default function BuySell({ crypto, price }: BuySellProps) {
   const [percentageUsed, setPercentageUsed] = useState<number>(0);
   const [selectedAction, setSelectedAction] = useState<"buy" | "sell">("buy");
   const [userId, setUserId] = useState<string | null>(null);
+  const [balance, setBalance] = useState<number>(0);
+  const [portfolio, setPortfolio] = useState<
+    { asset: string; quantity: number; averagePrice: number }[]
+  >([]);
+
+  const fetchUserData = useCallback(
+    async (id: string) => {
+      try {
+        const response = await fetch(`/api/portfolio/fetch?userId=${id}`);
+        const data = await response.json();
+        if (response.ok) {
+          setBalance(data.balance);
+          console.log(balance);
+          setPortfolio(data.portfolio);
+        } else {
+          console.error(data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    },
+    [balance]
+  );
 
   useEffect(() => {
     const storedUserId = sessionStorage.getItem("userId");
-    setUserId(storedUserId);
-  }, []);
+    if (storedUserId) {
+      setUserId(storedUserId);
+      fetchUserData(storedUserId);
+    }
+  }, [fetchUserData]);
 
   const handleSelection = (action: "buy" | "sell") => {
     setSelectedAction(action);
@@ -46,6 +72,135 @@ export default function BuySell({ crypto, price }: BuySellProps) {
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPercentageUsed(Number(e.target.value));
   };
+
+  const handleTransaction = async () => {
+    if (!userId) return alert("User not found");
+
+    let updatedBalance = balance;
+    const updatedPortfolio = [...portfolio]; // Convert to array
+
+    if (selectedAction === "buy") {
+      const cost = Number(amountUSD);
+      if (cost > balance) {
+        return alert("Not enough USD balance");
+      }
+      updatedBalance -= cost;
+
+      // Check if the asset already exists in the portfolio
+      const assetIndex = updatedPortfolio.findIndex(
+        (item) => item.asset === crypto
+      );
+
+      if (assetIndex !== -1) {
+        // Asset exists, update quantity and recalculate average price
+        updatedPortfolio[assetIndex].quantity += Number(amountCrypto);
+        updatedPortfolio[assetIndex].averagePrice =
+          (updatedPortfolio[assetIndex].averagePrice *
+            updatedPortfolio[assetIndex].quantity +
+            cost) /
+          (updatedPortfolio[assetIndex].quantity + Number(amountCrypto));
+      } else {
+        // New asset, add to portfolio
+        updatedPortfolio.push({
+          asset: crypto,
+          quantity: Number(amountCrypto),
+          averagePrice: price,
+        });
+      }
+    } else {
+      const sellAmount = Number(amountCrypto);
+      const assetIndex = updatedPortfolio.findIndex(
+        (item) => item.asset === crypto
+      );
+
+      if (
+        assetIndex === -1 ||
+        updatedPortfolio[assetIndex].quantity < sellAmount
+      ) {
+        return alert("Not enough crypto balance");
+      }
+
+      updatedBalance += Number(amountUSD);
+      updatedPortfolio[assetIndex].quantity -= sellAmount;
+
+      if (updatedPortfolio[assetIndex].quantity === 0) {
+        // Remove asset if quantity is 0
+        updatedPortfolio.splice(assetIndex, 1);
+      }
+    }
+
+    // Send updated data to API
+    try {
+      const response = await fetch("/api/portfolio/update", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId,
+          portfolio: updatedPortfolio,
+          balance: updatedBalance,
+        }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setBalance(updatedBalance);
+        setPortfolio(updatedPortfolio);
+        alert(data.message);
+      } else {
+        console.error(data.message);
+      }
+    } catch (error) {
+      console.error("Error updating portfolio:", error);
+    }
+  };
+
+  // const handleTransaction = async () => {
+  //   if (!userId) return alert("User not found");
+
+  //   let updatedBalance = balance;
+  //   let updatedPortfolio = { ...portfolio };
+
+  //   if (selectedAction === "buy") {
+  //     const cost = Number(amountUSD);
+  //     if (cost > balance) {
+  //       return alert("Not enough USD balance");
+  //     }
+  //     updatedBalance -= cost;
+  //     updatedPortfolio[crypto] =
+  //       (updatedPortfolio[crypto] || 0) + Number(amountCrypto);
+  //   } else {
+  //     const sellAmount = Number(amountCrypto);
+  //     if ((updatedPortfolio[crypto] || 0) < sellAmount) {
+  //       return alert("Not enough crypto balance");
+  //     }
+  //     updatedBalance += Number(amountUSD);
+  //     updatedPortfolio[crypto] -= sellAmount;
+  //   }
+
+  //   // Send updated portfolio and balance to API
+  //   try {
+  //     const response = await fetch("/api/portfolio/update", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({
+  //         userId,
+  //         portfolio: updatedPortfolio,
+  //         balance: updatedBalance,
+  //       }),
+  //     });
+
+  //     const data = await response.json();
+  //     if (response.ok) {
+  //       setBalance(updatedBalance);
+  //       setPortfolio(updatedPortfolio);
+  //       alert(data.message);
+  //     } else {
+  //       console.error(data.message);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error updating portfolio:", error);
+  //   }
+  // };
 
   return (
     <div>
@@ -132,11 +287,11 @@ export default function BuySell({ crypto, price }: BuySellProps) {
           />
         </div>
         <div className="text-right">
-          <p>Availiable: AmountUSD</p>
+          <p>Availiable: {balance}</p>
         </div>
         <div className="mt-4 flex justify-between">
           <button
-            //   onClick={}
+            onClick={handleTransaction}
             className={`px-4 py-2   ${
               selectedAction === "buy"
                 ? "bg-green-600  hover:bg-green-700"

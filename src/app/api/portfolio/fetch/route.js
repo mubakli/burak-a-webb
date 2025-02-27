@@ -14,7 +14,7 @@ export async function GET(req) {
       });
     }
 
-    const user = await User.findbyId(userId);
+    const user = await User.findById(userId);
 
     if (!user) {
       return new Response(JSON.stringify({ message: "User not found." }), {
@@ -22,9 +22,10 @@ export async function GET(req) {
       });
     }
 
-    return new Response(JSON.stringify({ portfolio: user.portfolio }), {
-      status: 200,
-    });
+    return new Response(
+      JSON.stringify({ balance: user.balance, portfolio: user.portfolio }),
+      { status: 200 }
+    );
   } catch (error) {
     return new Response(
       JSON.stringify({

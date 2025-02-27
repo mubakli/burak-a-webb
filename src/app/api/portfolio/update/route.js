@@ -23,7 +23,7 @@ export async function POST(req) {
 
     user.portfolio = portfolio;
     user.balance = balance;
-    await User.save();
+    await user.save();
 
     return new Response(
       JSON.stringify({ message: " Portfolio updated successfully !  " }),
