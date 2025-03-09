@@ -288,6 +288,7 @@ export default function BuySell({ crypto, price }: BuySellProps) {
         </div>
         <div className="text-right">
           <p>Availiable: {balance}</p>
+          <p>Availiable: {crypto} </p>
         </div>
         <div className="mt-4 flex justify-between">
           <button

@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import { Loader, TrendingUp } from "lucide-react";
 import BuySell from "./BuySell";

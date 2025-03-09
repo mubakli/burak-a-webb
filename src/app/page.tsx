@@ -1,38 +1,4 @@
-// import Head from "next/head";
-// import { useEffect, useRef, useState } from "react";
-
 export default function Home() {
-  // const divRef = useRef(null);
-  // const [isVisible, setIsVisible] = useState(false);
-
-  // useEffect(() => {
-  //   const observer = new IntersectionObserver(
-  //     ([entry]) => {
-  //       if (entry.isIntersecting) {
-  //         setIsVisible(true);
-  //       }
-  //     },
-  //     { threshold: 0.1 }
-  //   );
-
-  //   if (divRef.current) {
-  //     observer.observe(divRef.current);
-  //   }
-
-  //   return () => {
-  //     if (divRef.current) {
-  //       observer.unobserve(divRef.current);
-  //     }
-  //   };
-  // }, []);
-
-  // <div
-  //     ref={divRef}
-  //     className={`${
-  //       isVisible ? 'animate-slideUp' : 'opacity-0'
-  //     } bg-white shadow-lg p-8 rounded-md transition-opacity duration-300`}
-  //   ></div>
-
   return (
     <div className="selection:bg-gray-500 selection:text-black animate-slideUp">
       <div className=" pt-40 pl-5 sm:pl-20 font-bold text-mobile-size lg:text-custom-size tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-gray-500 to-white font-bold">
@@ -92,18 +58,34 @@ export default function Home() {
       <div className="content w-full  pl-10 pt-10 pr-10">
         <p className="text-3xl text-bold "> VİRTUAL TRADE (On Going...) </p>
         <p className="text-sm md:text-lg leading-relaxed mt-10 ">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad aut ipsam,
-          molestiae nemo est quisquam fuga aperiam incidunt provident
-          voluptatibus saepe voluptas, iste neque sit veniam eos praesentium
-          delectus repellat. Aliquam repellat quod animi optio. Soluta accusamus
-          repudiandae, facilis aspernatur fugiat dolorem repellendus quibusdam
-          expedita deserunt dignissimos placeat quisquam distinctio nam
-          obcaecati aperiam vel. Corporis error repellendus porro minima
-          voluptatum in dolores. Voluptatibus delectus porro culpa rem sapiente
-          consequatur ullam, iste asperiores ad, suscipit odit? Laboriosam
-          expedita quae explicabo quidem ullam non eum, possimus facilis dolorem
-          laborum nam ipsam minus temporibus corporis minima tempore. Nam earum
-          placeat non reprehenderit cum?
+          My virtual trade project is a web-based application designed to
+          simulate cryptocurrency trading. It allows users to buy and sell
+          virtual assets using a simulated USD balance. The platform features
+          real-time price updates for various cryptocurrencies, providing users
+          with an immersive experience as they make decisions based on market
+          fluctuations. The project includes a secure user authentication
+          system, a dynamic portfolio tracking feature, and a seamless
+          transaction process that updates both the user&apos;s balance and
+          portfolio in real-time. By leveraging technologies such as Next.js,
+          Node.js, and MongoDB, the application offers a smooth, intuitive
+          interface while handling backend operations like data storage and
+          retrieval efficiently. This project is a valuable learning experience
+          in both front-end and back-end development, with a focus on building
+          secure and scalable web applications.
+        </p>
+      </div>
+
+      <div className="content w-full  pl-10 pt-20 pr-10">
+        <p className="text-3xl text-bold ">
+          {" "}
+          VİRTUAL TRADE IOS - MOBILE VERSION (On Going...){" "}
+        </p>
+        <p className="text-sm md:text-lg leading-relaxed mt-10 ">
+          This page will provide an interactive and risk-free platform for users
+          to experience virtual trading. Whether you&apos;re learning how
+          trading works or just testing strategies, you&apos;ll have a virtual
+          balance to practice buying and selling items. Stay tuned as we work to
+          bring you features like:
         </p>
       </div>
     </div>
