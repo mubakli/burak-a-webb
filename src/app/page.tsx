@@ -85,7 +85,7 @@ export default function Home() {
           to experience virtual trading. Whether you&apos;re learning how
           trading works or just testing strategies, you&apos;ll have a virtual
           balance to practice buying and selling items. Stay tuned as we work to
-          bring you features like:
+          bring you features like: trial
         </p>
       </div>
     </div>
