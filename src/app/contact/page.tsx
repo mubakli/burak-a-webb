@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { Github, Linkedin, Mail, Send } from "lucide-react";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ export default function Contact() {
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("Sending...");
@@ -32,71 +34,123 @@ export default function Contact() {
       setStatus("Failed to send message. Try again later.");
     }
   };
+
   return (
-    <div className="flex mt-40  animate-slideUp items-center">
-      <div className="flex flex-col ml-20 pl-20 w-1/2 space-y-10 items-center h-[550px] w-[450px]">
-        <input
-          name="name"
-          maxLength={50}
-          type="text"
-          required
-          value={formData.name}
-          onChange={handleChange}
-          placeholder="Enter Your Name"
-          className="w-[450px] h-[50px] pl-10 text-white bg-gray-800 text-base font-semibold font-['Montserrat'] bg-[#ddd9d2] rounded-[25px] border border-white"
-        />
-        <input
-          name="email"
-          maxLength={60}
-          type="text"
-          required
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Enter Your Email Adress"
-          className="w-[450px] h-[50px] pl-10 text-white bg-gray-800 text-base font-semibold font-['Montserrat'] bg-[#ddd9d2] rounded-[25px] border border-white"
-        />
-        <textarea
-          name="message"
-          maxLength={430}
-          required
-          value={formData.message}
-          onChange={handleChange}
-          placeholder="Enter Your Message"
-          className="w-[450px] h-[300px] px-10 py-3 text-white bg-gray-800 text-base font-semibold font-['Montserrat'] bg-[#ddd9d2] rounded-[25px] border border-white"
-        />
-        <button
-          onClick={handleSubmit}
-          className="w-44 h-12 bg-blue-600 rounded-full text-white flex items-center justify-center hover:cursor-pointer"
-        >
-          Gönder
-        </button>
-        {status && <p className="text-sm mt-2 text-gray-700">{status}</p>}
-      </div>
-      <div className="flex flex-col mx-20 px-20 items-center">
-        <div className=" flex space-x-4 mx-10 my-10 font bold  ">
-          <p>Email:</p>
-          <p className="pl-5 underline decoration-rose-700">
-            brkasarcikli@outlook.com
-          </p>
+    <div className="min-h-screen py-20 px-6 md:px-20 max-w-7xl mx-auto flex flex-col justify-center">
+      <div className="grid md:grid-cols-2 gap-16 items-start">
+        
+        {/* Left: Contact Info */}
+        <div className="space-y-10 animate-slideUp">
+          <div>
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">Let&apos;s Connect</h1>
+            <p className="text-gray-400 text-lg leading-relaxed">
+              I&apos;m always open to discussing new projects, creative ideas or opportunities to be part of your visions.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            <a 
+              href="mailto:brkasarcikli@outlook.com"
+              className="flex items-center gap-4 p-4 bg-white/5 rounded-xl border border-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all group"
+            >
+              <div className="p-3 bg-slate-800 rounded-lg group-hover:bg-purple-500/20 transition-colors">
+                <Mail className="w-6 h-6 text-purple-400" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Mail me at</p>
+                <p className="text-white font-medium">brkasarcikli@outlook.com</p>
+              </div>
+            </a>
+
+            <a 
+              href="https://www.linkedin.com/in/burak-asarcikli"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-4 p-4 bg-white/5 rounded-xl border border-white/5 hover:bg-white/10 hover:border-blue-500/30 transition-all group"
+            >
+              <div className="p-3 bg-slate-800 rounded-lg group-hover:bg-blue-500/20 transition-colors">
+                <Linkedin className="w-6 h-6 text-blue-400" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Connect on</p>
+                <p className="text-white font-medium">LinkedIn</p>
+              </div>
+            </a>
+
+            <a 
+              href="https://github.com/mubakli"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-4 p-4 bg-white/5 rounded-xl border border-white/5 hover:bg-white/10 hover:border-gray-500/30 transition-all group"
+            >
+              <div className="p-3 bg-slate-800 rounded-lg group-hover:bg-gray-500/20 transition-colors">
+                <Github className="w-6 h-6 text-gray-400" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Follow on</p>
+                <p className="text-white font-medium">GitHub</p>
+              </div>
+            </a>
+          </div>
         </div>
-        <div className="flex mx-10 my-10 font bold  ">
-          <p>Linkedln:</p>
-          <a
-            href="www.linkedin.com/in/burak-asarcikli"
-            className="pl-5 underline decoration-teal-800"
-          >
-            www.linkedin.com/in/burak-asarcikli
-          </a>
+
+        {/* Right: Form */}
+        <div className="bg-white/5 p-8 md:p-10 rounded-3xl border border-white/10 backdrop-blur-sm animate-slideUp" style={{ animationDelay: "0.2s" }}>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <h3 className="text-2xl font-bold text-white mb-6">Send a Message</h3>
+            
+            <div className="group">
+              <input
+                name="name"
+                type="text"
+                required
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Name"
+                className="w-full bg-black/20 border border-white/10 rounded-xl px-5 py-4 text-white placeholder:text-gray-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
+              />
+            </div>
+
+            <div className="group">
+              <input
+                name="email"
+                type="email"
+                required
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Email Address"
+                className="w-full bg-black/20 border border-white/10 rounded-xl px-5 py-4 text-white placeholder:text-gray-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
+              />
+            </div>
+
+            <div className="group">
+              <textarea
+                name="message"
+                required
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Your Message"
+                rows={5}
+                className="w-full bg-black/20 border border-white/10 rounded-xl px-5 py-4 text-white placeholder:text-gray-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all resize-none"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold py-4 rounded-xl hover:opacity-90 transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
+            >
+              <Send className="w-5 h-5" />
+              Send Message
+            </button>
+
+            {status && (
+              <p className={`text-center text-sm mt-4 ${status.includes("successfully") ? "text-green-400" : "text-red-400"}`}>
+                {status}
+              </p>
+            )}
+          </form>
         </div>
-        <div className="flex mx-10 my-10 font bold ">
-          <p>Github:</p>
-          <a
-            href="https://github.com/mubakli"
-            className="pl-5 underline decoration-orange-800"
-          >
-            https://github.com/mubakli
-          </a>
-        </div>
+
       </div>
     </div>
   );
