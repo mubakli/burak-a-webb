@@ -56,7 +56,21 @@ export default function Home() {
       </div>
 
       <div className="content w-full  pl-10 pt-10 pr-10">
-        <p className="text-3xl text-bold "> VİRTUAL TRADE (On Going...) </p>
+        <p className="text-3xl text-bold ">
+          {" "}
+          MEDENIYETEKNO COMMUNITIY WEBSITE{" "}
+        </p>
+        <p className="text-sm md:text-lg leading-relaxed mt-10 ">
+          A community website shares information about the community, upcoming
+          events, and how to join them. It includes an events section with
+          details on workshops and gatherings, along with an apply page for easy
+          registration. The website is also mobile-friendly, making it simple to
+          access from any device.
+        </p>
+      </div>
+
+      <div className="content w-full  pl-10 pt-10 pr-10">
+        <p className="text-3xl text-bold "> VİRTUAL TRADE (Ongoing...) </p>
         <p className="text-sm md:text-lg leading-relaxed mt-10 ">
           My virtual trade project is a web-based application designed to
           simulate cryptocurrency trading. It allows users to buy and sell
@@ -78,7 +92,7 @@ export default function Home() {
       <div className="content w-full  pl-10 pt-20 pr-10">
         <p className="text-3xl text-bold ">
           {" "}
-          VİRTUAL TRADE IOS - MOBILE VERSION (On Going...){" "}
+          VİRTUAL TRADE IOS - MOBILE VERSION (Ongoing...){" "}
         </p>
         <p className="text-sm md:text-lg leading-relaxed mt-10 ">
           This page will provide an interactive and risk-free platform for users
