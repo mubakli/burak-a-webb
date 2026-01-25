@@ -40,7 +40,7 @@ export default function Home() {
             email content, including metadata such as sender, recipient,
             subject, and date. With its ability to manage sent emails, save
             drafts, and handle attachments, this email client provides a robust
-            and user-friendly solution for both sending and receiving emails.
+            and user-friendly solution for both sending and receiving emails..
           </p>
         </div>
         {/* Video Section */}
