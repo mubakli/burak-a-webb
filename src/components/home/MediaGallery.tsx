@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
@@ -40,7 +42,7 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({ items, autoPlay = false }) 
       <div className="media-gallery-container relative w-full max-w-[600px] mx-auto group">
         {/* Main Display */}
         <div 
-          className="relative aspect-video bg-gradient-to-br from-purple-900/20 to-blue-900/20 rounded-2xl overflow-hidden shadow-2xl cursor-pointer transition-transform hover:scale-[1.02]"
+          className="relative aspect-video bg-neutral-900 border border-white/10 rounded-xl overflow-hidden shadow-2xl cursor-pointer transition-transform hover:border-white/20"
           onClick={() => setIsFullscreen(true)}
         >
           {currentItem.type === "video" ? (
@@ -53,10 +55,11 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({ items, autoPlay = false }) 
               className="w-full h-full object-cover"
             />
           ) : (
-            <img
+            <Image
               src={currentItem.src}
               alt={currentItem.alt || `Media ${currentIndex + 1}`}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
             />
           )}
 
@@ -96,15 +99,15 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({ items, autoPlay = false }) 
 
         {/* Thumbnail Navigation */}
         {items.length > 1 && (
-          <div className="flex gap-2 mt-4 overflow-x-auto p-2 scrollbar-thin scrollbar-thumb-purple-500 scrollbar-track-transparent">
+          <div className="flex gap-2 mt-4 overflow-x-auto p-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
             {items.map((item, index) => (
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all duration-300 ${
+                className={`relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border transition-all duration-300 ${
                   index === currentIndex
-                    ? "border-purple-500 scale-110 shadow-lg shadow-purple-500/50"
-                    : "border-transparent hover:border-purple-300 opacity-60 hover:opacity-100"
+                    ? "border-white scale-105 opacity-100 ring-1 ring-white/20"
+                    : "border-transparent hover:border-white/40 opacity-50 hover:opacity-100"
                 }`}
               >
                 {item.type === "video" ? (
@@ -114,10 +117,11 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({ items, autoPlay = false }) 
                     muted
                   />
                 ) : (
-                  <img
+                  <Image
                     src={item.thumbnail || item.src}
                     alt={`Thumbnail ${index + 1}`}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                 )}
               </button>
@@ -150,10 +154,11 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({ items, autoPlay = false }) 
                 className="w-full h-full max-h-[90vh] object-contain rounded-lg"
               />
             ) : (
-              <img
+              <Image
                 src={currentItem.src}
                 alt={currentItem.alt || `Media ${currentIndex + 1}`}
-                className="w-full h-full max-h-[90vh] object-contain rounded-lg"
+                fill
+                className="object-contain"
               />
             )}
 
