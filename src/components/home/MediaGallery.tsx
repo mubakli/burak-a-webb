@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
@@ -53,10 +55,11 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({ items, autoPlay = false }) 
               className="w-full h-full object-cover"
             />
           ) : (
-            <img
+            <Image
               src={currentItem.src}
               alt={currentItem.alt || `Media ${currentIndex + 1}`}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
             />
           )}
 
@@ -101,7 +104,7 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({ items, autoPlay = false }) 
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border transition-all duration-300 ${
+                className={`relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border transition-all duration-300 ${
                   index === currentIndex
                     ? "border-white scale-105 opacity-100 ring-1 ring-white/20"
                     : "border-transparent hover:border-white/40 opacity-50 hover:opacity-100"
@@ -114,10 +117,11 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({ items, autoPlay = false }) 
                     muted
                   />
                 ) : (
-                  <img
+                  <Image
                     src={item.thumbnail || item.src}
                     alt={`Thumbnail ${index + 1}`}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                 )}
               </button>
@@ -150,10 +154,11 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({ items, autoPlay = false }) 
                 className="w-full h-full max-h-[90vh] object-contain rounded-lg"
               />
             ) : (
-              <img
+              <Image
                 src={currentItem.src}
                 alt={currentItem.alt || `Media ${currentIndex + 1}`}
-                className="w-full h-full max-h-[90vh] object-contain rounded-lg"
+                fill
+                className="object-contain"
               />
             )}
 

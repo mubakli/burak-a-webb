@@ -55,7 +55,8 @@ export default function Home() {
             status="Live"
             description={
               <>
-                The official website for MedeniyeTekno, the technology club of Istanbul Medeniyet University. Designed and developed to showcase club events, team members, and mission. The platform serves as a hub for students to connect, learn about workshops, and stay updated with the latest tech activities on campus. Built with a focus on modern UI/UX principles to reflect the club's innovative spirit.
+                The official website for MedeniyeTekno, the technology club of Istanbul Medeniyet University. Designed and developed to showcase club events, team members, and mission. The platform serves as a hub for students to connect, learn about workshops, and stay updated with the latest tech activities on campus. Built with a focus on modern UI/UX principles to reflect the club&apos;s innovative spirit.
+
                 <br /><br />
                 <a href="https://medeniyetekno.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-white underline hover:text-gray-300 transition-colors">
                   Visit Website

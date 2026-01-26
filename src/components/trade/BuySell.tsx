@@ -32,7 +32,7 @@ export default function BuySell({ crypto, price }: BuySellProps) {
         console.error("Error fetching user data:", error);
       }
     },
-    [balance]
+    []
   );
 
   useEffect(() => {
