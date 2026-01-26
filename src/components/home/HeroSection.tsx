@@ -1,63 +1,97 @@
-import React from "react";
+"use client";
+import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 const HeroSection = () => {
-  return (
-    <div className="min-h-[85vh] flex flex-col justify-center relative bg-black overflow-hidden">
-      {/* Animated Grid Background */}
-      <div className="absolute inset-0 transform scale-[1.5] pointer-events-none">
-        <div 
-          className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff33_1px,transparent_1px),linear-gradient(to_bottom,#ffffff33_1px,transparent_1px)] bg-[size:40px_40px]"
-          style={{ animation: 'grid-move 20s linear infinite' }}
-        ></div>
-      </div>
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!containerRef.current) return;
+      const { left, top } = containerRef.current.getBoundingClientRect();
+      const x = e.clientX - left;
+      const y = e.clientY - top;
       
-      {/* Gradient Mask for Fade Out - Softened to reveal more grid */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent via-60% to-black pointer-events-none"></div>
+      containerRef.current.style.setProperty('--mouse-x', `${x}px`);
+      containerRef.current.style.setProperty('--mouse-y', `${y}px`);
+    };
+
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener('mousemove', handleMouseMove);
+    }
+    return () => {
+      if (container) {
+        container.removeEventListener('mousemove', handleMouseMove);
+      }
+    };
+  }, []);
+
+  return (
+    <div 
+      ref={containerRef}
+      className="min-h-[85vh] flex flex-col justify-center relative overflow-hidden bg-[var(--background-start)]"
+    >
+      {/* Background: Base Architectural Dot Pattern (Subtle) */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.08]" 
+           style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '24px 24px' }}>
+      </div>
+
+      {/* Spotlight Effect: Brighter dots revealed by mouse mask */}
+      <div 
+        className="absolute inset-0 pointer-events-none opacity-20 transition-opacity duration-300"
+        style={{ 
+          backgroundImage: 'radial-gradient(#ffffff 1.5px, transparent 1.5px)', 
+          backgroundSize: '24px 24px',
+          maskImage: 'radial-gradient(300px circle at var(--mouse-x) var(--mouse-y), black, transparent)',
+          WebkitMaskImage: 'radial-gradient(300px circle at var(--mouse-x) var(--mouse-y), black, transparent)'
+        }}
+      >
+      </div>
 
       <div className="max-w-7xl mx-auto px-6 md:px-8 w-full animate-fadeIn pt-20 relative z-10">
-        {/* Intro Tag - Static & Professional */}
-        <div className="inline-block mb-8">
-          <span className="px-3 py-1 text-xs font-semibold tracking-wider text-gray-400 uppercase border border-white/10 rounded-md bg-white/5">
+        {/* Intro Tag - Minimalist & Editorial */}
+        <div className="inline-block mb-10">
+          <span className="px-0 py-1 text-xs font-bold tracking-[0.2em] text-[var(--primary)] uppercase border-b-2 border-[var(--primary)] pb-1">
             Available for new projects
           </span>
         </div>
 
-        {/* Main Title - Solid Typography with Pulse Effect */}
-        <div className="relative mb-8">
-           {/* Subtle Pulse Animation Layer */}
-           <div className="absolute -left-12 -top-12 w-64 h-64 bg-white/[0.05] rounded-full blur-3xl animate-pulse-slow pointer-events-none"></div>
-           
-           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-[0.9] relative z-10">
+        {/* Main Title - Heavy & Solid Typography */}
+        <div className="relative mb-10">
+           <h1 className="text-5xl md:text-7xl lg:text-9xl font-extrabold tracking-tighter text-[var(--foreground)] leading-[0.9] relative z-10">
             FULL-STACK
             <br />
-            <span className="text-gray-500">DEVELOPER</span>
+            {/* Outline Text Effect for 'DEVELOPER' - Architectural Feel */}
+            <span className="text-transparent bg-clip-text bg-gradient-to-b from-[var(--foreground)] to-[var(--foreground)] opacity-90"
+                  style={{ WebkitTextStroke: '1px var(--foreground)', color: 'transparent' }}>
+              DEVELOPER
+            </span>
           </h1>
         </div>
 
-        {/* Description - High Legibility */}
-        <p className="text-gray-400 text-lg md:text-xl max-w-2xl leading-relaxed mb-12 font-light">
-          I build accessible, pixel-perfect, and performant web experiences.
-          Passionate about blending design with robust engineering to create 
-          standout digital products.
+        {/* Description - Clean Serif or Monospace Mix */}
+        <p className="text-neutral-400 text-lg md:text-xl max-w-xl leading-relaxed mb-16 font-light">
+          Crafting digital experiences with precision and purpose. 
+          Focusing on <span className="text-[var(--foreground)] font-medium">accessibility</span>, <span className="text-[var(--foreground)] font-medium">performance</span>, and <span className="text-[var(--foreground)] font-medium">timeless design</span>.
         </p>
 
-        {/* CTA Buttons - Clean & Solid */}
-        <div className="flex flex-col sm:flex-row gap-5">
+        {/* CTA Buttons - Sharp & Architectural */}
+        <div className="flex flex-col sm:flex-row gap-6 items-start">
           <Link
             href="/#scrollTo"
-            className="group px-8 py-4 bg-white text-black font-bold rounded-lg flex items-center justify-center gap-2 hover:bg-gray-200 transition-colors"
+            className="group px-8 py-5 bg-[var(--primary)] text-white font-bold rounded-none flex items-center justify-center gap-3 hover:bg-[var(--primary-dark)] transition-colors tracking-wide"
           >
-            View Projects
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            VIEW PROJECTS
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
           
           <Link
             href="/contact"
-            className="group px-8 py-4 bg-transparent text-white font-medium rounded-lg border border-white/20 flex items-center justify-center gap-2 hover:border-white hover:bg-white/5 transition-all"
+            className="group px-8 py-5 bg-transparent text-[var(--foreground)] font-bold rounded-none border-2 border-[#404040] flex items-center justify-center gap-3 hover:border-[var(--foreground)] transition-all tracking-wide"
           >
-            Contact Me
+            CONTACT ME
           </Link>
         </div>
       </div>
