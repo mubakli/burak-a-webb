@@ -20,35 +20,39 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   const mediaItems: MediaItem[] = media || (videoSrc ? [{ type: "video", src: videoSrc }] : []);
 
   return (
-    <div className="project-section flex flex-col md:flex-row items-center md:items-start mb-16 gap-8 px-4 md:px-10">
+    <div className="border-t border-white/10 py-16 grid grid-cols-1 md:grid-cols-2 gap-12 items-start group">
       {/* Content Section */}
-      <div
-        className={`content w-full ${
-          mediaItems.length > 0 ? "md:w-1/2 lg:w-2/3" : ""
-        } space-y-6`}
-      >
-        <div className="relative inline-block">
-          <h3 className="text-3xl md:text-4xl font-bold text-white tracking-wide drop-shadow-sm group-hover:text-purple-200 transition-colors duration-300">
-            {title}
-          </h3>
-          {status && (
-            <span className="ml-3 text-sm md:text-base text-yellow-400 font-semibold animate-pulse">
-              ({status})
-            </span>
-          )}
+      <div className="space-y-6">
+        <div>
+           <div className="flex items-center gap-3 mb-2">
+            <h3 className="text-2xl font-semibold text-white tracking-tight">
+              {title}
+            </h3>
+            {status && (
+              <span className="px-2 py-0.5 text-xs font-medium text-green-400 bg-green-400/10 rounded border border-green-400/20">
+                {status}
+              </span>
+            )}
+           </div>
         </div>
         
-        <p className="text-sm md:text-lg leading-relaxed text-gray-300 backdrop-blur-sm">
+        <div className="text-gray-400 leading-relaxed text-base font-light">
           {description}
-        </p>
+        </div>
       </div>
 
       {/* Media Gallery Section */}
-      {mediaItems.length > 0 && (
-        <div className="w-full md:w-1/2 lg:w-1/3 flex justify-center md:justify-end">
-          <MediaGallery items={mediaItems} autoPlay={false} />
-        </div>
-      )}
+      <div className="w-full">
+        {mediaItems.length > 0 ? (
+          <div className="rounded-lg overflow-hidden border border-white/10 bg-white/5 grayscale group-hover:grayscale-0 transition-all duration-500">
+             <MediaGallery items={mediaItems} autoPlay={false} />
+          </div>
+        ) : (
+           <div className="h-64 bg-white/5 rounded-lg border border-white/10 flex items-center justify-center text-gray-500">
+             No Preview Available
+           </div>
+        )}
+      </div>
     </div>
   );
 };
