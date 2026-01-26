@@ -109,7 +109,7 @@ export default function About() {
               <h3 className="text-sm font-bold uppercase tracking-widest text-[#666]">Beyond the Code</h3>
               <h4 className="text-3xl font-light text-[var(--foreground)]">The Long Ride</h4>
               <p className="text-neutral-500 leading-relaxed text-lg max-w-2xl">
-                 Cycling is my meditation. Whether it's climbing mountain passes or cruising along coastal roads, every long-distance ride clears my mind for the next challenge.
+                 Cycling is my meditation. Whether it&apos;s climbing mountain passes or cruising along coastal roads, every long-distance ride clears my mind for the next challenge.
               </p>
             </div>
 
