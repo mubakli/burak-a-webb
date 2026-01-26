@@ -10,75 +10,81 @@ export default function About() {
 
   return (
     <div className="min-h-screen py-32 px-6 md:px-8 max-w-7xl mx-auto">
-      {/* Header - Simple & Bold */}
-      <h1 className="text-4xl md:text-5xl font-bold text-white mb-20 tracking-tight">
-        About Me
+      {/* Header - Editorial Style */}
+      <h1 className="text-5xl md:text-7xl font-bold text-[var(--foreground)] mb-20 tracking-tighter opacity-90">
+        ABOUT
+        <br />
+        <span className="text-[var(--primary)] text-4xl md:text-6xl font-light italic">Me & The Craft</span>
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24">
         {/* Left Column: Image & Quick Info */}
-        <div className="md:col-span-4 lg:col-span-3 space-y-10">
-          <div className="relative aspect-square overflow-hidden rounded-2xl group">
-             {/* Vibrant Gradient Background/Border Effect */}
-            <div className="absolute -inset-1 bg-gradient-to-tr from-purple-600 to-blue-500 blur opacity-40 group-hover:opacity-100 transition duration-1000"></div>
-            <div className="relative h-full w-full bg-neutral-900 rounded-2xl border border-white/10 overflow-hidden">
+        <div className="md:col-span-4 lg:col-span-3 space-y-12">
+          <div className="relative aspect-[3/4] overflow-hidden group">
+             {/* Architectural Frame - No rounded corners, minimalist border */}
+            <div className="relative h-full w-full bg-[#1a1a1a] border border-[#333] overflow-hidden group-hover:border-[var(--primary)] transition-all duration-500">
               <Image
                 src="/Myphoto.jpg"
                 alt="Burak Asarcıklı"
                 fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
               />
             </div>
           </div>
 
-          <div className="space-y-6">
-            <div className="flex items-center space-x-4 text-gray-400 group hover:text-white transition-colors">
-              <div className="p-2 bg-purple-500/10 rounded-lg text-purple-400 group-hover:text-purple-300">
-                <GraduationCap className="w-5 h-5" />
+          <div className="space-y-8 border-l border-[#333] pl-6">
+            <div className="flex flex-col space-y-1 group">
+              <div className="text-[var(--primary)] mb-1">
+                <GraduationCap className="w-5 h-5 stroke-1" />
               </div>
-              <span className="text-sm font-medium">Comp. Engineering Student</span>
+              <span className="text-xs font-bold uppercase tracking-widest text-[#666]">Role</span>
+              <span className="text-sm font-medium text-[var(--foreground)]">Comp. Engineering Student</span>
             </div>
-            <div className="flex items-center space-x-4 text-gray-400 group hover:text-white transition-colors">
-              <div className="p-2 bg-blue-500/10 rounded-lg text-blue-400 group-hover:text-blue-300">
-                 <Globe className="w-5 h-5" />
+            
+            <div className="flex flex-col space-y-1 group">
+               <div className="text-[var(--primary)] mb-1">
+                 <Globe className="w-5 h-5 stroke-1" />
               </div>
-              <span className="text-sm font-medium">Istanbul, Turkey</span>
+              <span className="text-xs font-bold uppercase tracking-widest text-[#666]">Based In</span>
+              <span className="text-sm font-medium text-[var(--foreground)]">Istanbul, Turkey</span>
             </div>
-            <div className="flex items-center space-x-4 text-gray-400 group hover:text-white transition-colors">
-               <div className="p-2 bg-pink-500/10 rounded-lg text-pink-400 group-hover:text-pink-300">
-                <Laptop className="w-5 h-5" />
+
+            <div className="flex flex-col space-y-1 group">
+               <div className="text-[var(--primary)] mb-1">
+                <Laptop className="w-5 h-5 stroke-1" />
                </div>
-              <span className="text-sm font-medium">Web Development Enthusiast</span>
+               <span className="text-xs font-bold uppercase tracking-widest text-[#666]">Focus</span>
+               <span className="text-sm font-medium text-[var(--foreground)]">Web Development</span>
             </div>
           </div>
         </div>
 
         {/* Right Column: Bio & Skills */}
-        <div className="md:col-span-8 lg:col-span-9 space-y-16">
-          {/* Bio - High Contrast Typography */}
-          <div className="space-y-8 text-lg md:text-xl text-gray-400 leading-relaxed font-light">
-            <p>
-              Hi there! I&apos;m a second-year Computer Engineering student at <span className="text-white font-medium border-b border-purple-500/30">Istanbul Medeniyet University</span> with a strong passion for web development.
+        <div className="md:col-span-8 lg:col-span-9 space-y-20">
+          {/* Bio - Editorial Layout */}
+          <div className="space-y-8 text-xl md:text-2xl text-[var(--foreground)] leading-relaxed font-light">
+            <p className="indent-12">
+              Hi there! I&apos;m a second-year Computer Engineering student at <span className="text-[var(--primary)] border-b border-[var(--primary)] pb-0.5">Istanbul Medeniyet University</span>.
             </p>
-            <p>
-              My journey is defined by hands-on learning—I prefer building real projects over watching endless tutorials. Currently, I&apos;m focused on advancing my skills in the modern web stack while exploring exciting fields like mobile development, blockchain, and AI.
+            <p className="text-neutral-500 text-lg md:text-xl">
+              My journey is defined by hands-on learning—preferring real projects over endless tutorials. I build to learn, dissecting the modern web stack piece by piece.
             </p>
-            <p>
-              As a member of <span className="text-white font-medium text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">MedeniyeTekno</span>, my university&apos;s tech club, I&apos;ve contributed to various initiatives, including developing the club&apos;s website. This experience has been instrumental in refining my full-stack capabilities and collaborative skills.
+            <p className="text-neutral-500 text-lg md:text-xl">
+              As a member of <span className="text-[var(--foreground)] font-medium">MedeniyeTekno</span>, I&apos;ve contributed to various initiatives, honing my collaborative skills in a team environment.
             </p>
           </div>
 
-          {/* Tech Stack - Colored Chips */}
-          <div className="space-y-8 border-t border-white/5 pt-12">
-            <h3 className="text-xl font-semibold text-white flex items-center gap-3">
-              <Code2 className="w-5 h-5 text-purple-400" />
-              Tech Stack
+          {/* Tech Stack - Minimalist Grid */}
+          <div className="space-y-8 border-t border-[#333] pt-12">
+            <h3 className="text-sm font-bold uppercase tracking-widest text-[#666] flex items-center gap-3">
+              <Code2 className="w-4 h-4 text-[var(--primary)]" />
+              Technology Stack
             </h3>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-x-2 gap-y-2">
               {skills.map((skill) => (
                 <span 
                   key={skill}
-                  className="px-4 py-2 border border-white/5 bg-white/5 rounded-lg text-sm text-gray-300 hover:text-white hover:bg-white/10 hover:border-purple-500/30 hover:shadow-[0_0_15px_rgba(168,85,247,0.15)] transition-all duration-300 cursor-default"
+                  className="px-4 py-2 border border-[#333] bg-[#1a1a1a] text-sm text-[var(--foreground)] hover:border-[var(--primary)] hover:text-[var(--primary)] transition-all duration-300 cursor-default"
                 >
                   {skill}
                 </span>
@@ -86,41 +92,67 @@ export default function About() {
             </div>
           </div>
 
-          {/* Current Focus - Minimal Card with Accent */}
-          <div className="p-8 bg-gradient-to-br from-neutral-900 to-neutral-900/50 rounded-xl border border-white/5 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-3xl group-hover:bg-blue-500/10 transition-colors"></div>
-            <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-2 relative z-10">
-              <Cpu className="w-4 h-4 text-blue-400" />
-              Current Focus
+          {/* Current Focus - Architectural Card */}
+          <div className="p-8 bg-[#1a1a1a] border border-[#333] relative overflow-hidden group hover:border-[var(--primary)] transition-colors duration-500">
+            <h3 className="text-lg font-medium text-[var(--foreground)] mb-4 flex items-center gap-2">
+              <Cpu className="w-4 h-4 text-[var(--primary)]" />
+              Current Object
             </h3>
-            <p className="text-gray-400 leading-relaxed relative z-10">
-              I&apos;m currently building a personal website portfolio and deep-diving into <span className="text-white">Next.js 15</span> features. I&apos;m always open to new challenges that push my boundaries as a developer.
+            <p className="text-neutral-400 leading-relaxed font-light text-lg">
+              I&apos;m currently building a personal portfolio and deep-diving into <span className="text-[var(--foreground)] border-b border-[#555]">Next.js 15</span> features. Pushing boundaries, one commit at a time.
             </p>
           </div>
 
-          {/* Beyond the Code - Gallery Grid */}
-          <div className="space-y-8 border-t border-white/5 pt-12">
-            <h3 className="text-xl font-semibold text-white">Beyond the Code</h3>
-            <p className="text-gray-400 leading-relaxed">
-              When I&apos;m not debugging or designing systems, I love to disconnect and recharge. Exploring new hobbies keeps my creativity flowing and gives me fresh perspectives.
-            </p>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {/* Hobby 1 */}
-              <div className="group relative overflow-hidden rounded-xl bg-neutral-900 border border-white/5 aspect-[4/3] hover:border-white/20 transition-all">
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-blue-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="absolute inset-0 bg-neutral-800/80 group-hover:bg-transparent transition-colors duration-500 flex items-center justify-center">
-                  <span className="text-gray-500 group-hover:text-white text-xs font-mono uppercase tracking-widest z-10">Photography</span>
-                </div>
-              </div>
+          {/* Beyond the Code */}
+          <div className="space-y-12 border-t border-[#333] pt-12">
+            <div className="flex flex-col gap-4">
+              <h3 className="text-sm font-bold uppercase tracking-widest text-[#666]">Beyond the Code</h3>
+              <h4 className="text-3xl font-light text-[var(--foreground)]">The Long Ride</h4>
+              <p className="text-neutral-500 leading-relaxed text-lg max-w-2xl">
+                 Cycling is my meditation. Whether it's climbing mountain passes or cruising along coastal roads, every long-distance ride clears my mind for the next challenge.
+              </p>
+            </div>
 
-              {/* Hobby 2 */}
-              <div className="group relative overflow-hidden rounded-xl bg-neutral-900 border border-white/5 aspect-[4/3] hover:border-white/20 transition-all">
-                 <div className="absolute inset-0 bg-gradient-to-br from-orange-900/20 to-amber-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                 <div className="absolute inset-0 bg-neutral-800/80 group-hover:bg-transparent transition-colors duration-500 flex items-center justify-center">
-                  <span className="text-gray-500 group-hover:text-white text-xs font-mono uppercase tracking-widest z-10">Coffee Culture</span>
+            <div className="grid grid-cols-2 gap-1">
+                {/* Image 1 - Vertical Slice */}
+                <div className="relative aspect-[4/3] overflow-hidden grayscale hover:grayscale-0 transition-all duration-700">
+                  <Image 
+                    src="/cycling-me.jpg" 
+                    alt="The Journey" 
+                    fill 
+                    className="object-cover"
+                  />
                 </div>
-              </div>
+                {/* Image 2 - Vertical Slice */}
+                <div className="relative aspect-[4/3] overflow-hidden grayscale hover:grayscale-0 transition-all duration-700">
+                  <Image 
+                    src="/cycling-road.jpg" 
+                    alt="On the Road" 
+                    fill 
+                    className="object-cover"
+                  />
+                </div>
+            </div>
+
+            {/* Perfume Section */}
+            <div className="flex flex-col gap-4 mt-12 border-t border-[#333] pt-12">
+              <h4 className="text-3xl font-light text-[var(--foreground)]">Alchemy of Scent</h4>
+              <p className="text-neutral-500 leading-relaxed text-lg max-w-2xl">
+                 Beyond the screen, I experiment with notes and accords. Blending raw materials to create unique fragrances satisfies my desire for tangible, sensory creation.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-1">
+                 {/* Image - Wide Panoramic Cinematic */}
+                <div className="relative aspect-[21/9] overflow-hidden grayscale hover:grayscale-0 transition-all duration-700 border border-[#333]">
+                  {/* Mockup Data Placeholder */}
+                  <Image 
+                    src="/perfume-mockup.jpg" 
+                    alt="Perfume Creation" 
+                    fill 
+                    className="object-cover"
+                  />
+                </div>
             </div>
           </div>
         </div>

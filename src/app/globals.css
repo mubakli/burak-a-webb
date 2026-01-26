@@ -2,23 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Architectural & Editorial Palette */
+  --primary: #c2410c; /* Copper/Burnt Orange - Warm, Earthy, Distinct */
+  --primary-dark: #9a3412; /* Deep Rust */
+  --accent: #d97706; /* Amber Gold (Subtle) */
+  --accent-light: #fdba74; /* Soft Apricot */
+  
+  --background-start: #171717; /* Neutral Charcoal 900 */
+  --background-end: #262626;   /* Neutral Charcoal 800 */
+  --foreground: #fafaf9;       /* Stone 50 - Off-white, softer than pure white */
+  
+  --card-bg: #262626;
+  --card-border: #404040;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a; /* Subtler dark, less pitch black if desired, or stick to black */
-    --foreground: #ffffff;
+    /* Enforcing the Matte Charcoal Look across modes if desired, or refine for dark */
+    --background-start: #171717;
+    --background-end: #1c1917; /* Stone 900 - Warmer Dark */
+    --foreground: #e7e5e4;     /* Stone 200 */
+    
+    --primary: #ea580c; /* Orange 600 */
+    --primary-dark: #c2410c; /* Orange 700 */
+    --accent: #d97706;
   }
 }
 
 body {
   color: var(--foreground);
-  background: var(--background);
+  background-color: var(--background-start);
+  /* Optional: Subtle noise texture could be added here later if needed */
+  background-image: linear-gradient(to bottom, var(--background-start), var(--background-end));
+  min-height: 100vh;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -29,7 +46,7 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Fade In Animation - Keep this as it is subtle */
+/* Fade In Animation */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -40,22 +57,15 @@ html {
   100% { transform: translateY(50px); }
 }
 
-@keyframes pulse-slow {
-  0%, 100% { opacity: 0.1; }
-  50% { opacity: 0.3; }
-}
-
-.animate-pulse-slow {
-  animation: pulse-slow 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
+/* Removed pulse-slow as we want more static elegance */
 
 .animate-fadeIn {
-  animation: fadeIn 0.5s ease-out;
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1); /* Slower, smoother 'editorial' fade */
 }
 
 /* Clean up selection color for better readability */
 ::selection {
-  background: #333;
+  background: var(--primary); /* Copper highlight */
   color: #fff;
 }
 
