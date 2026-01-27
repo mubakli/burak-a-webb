@@ -24,7 +24,7 @@ export default function About() {
              {/* Architectural Frame - No rounded corners, minimalist border */}
             <div className="relative h-full w-full bg-[#1a1a1a] border border-[#333] overflow-hidden group-hover:border-[var(--primary)] transition-all duration-500">
               <Image
-                src="/MyPhoto.jpg"
+                src="/Myphoto.JPG"
                 alt="Burak Asarcıklı"
                 fill
                 className="object-cover group-hover:grayscale-0 transition-transform duration-700"
