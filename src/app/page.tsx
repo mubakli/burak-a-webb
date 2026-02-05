@@ -36,6 +36,7 @@ export default function Home() {
               { type: "image", src: "/splitable-groups.png", alt: "Splitable Groups" },
               { type: "image", src: "/splitable-debts.png", alt: "Splitable Debts" },
             ]}
+            techStack={["Node.js", "Express.js", "React", "Tailwind CSS", "PostgreSQL", "Docker", "JWT Auth"]}
           />
 
           <ProjectCard
@@ -48,6 +49,7 @@ export default function Home() {
               { type: "image", src: "/survey-form-ru.png", alt: "Survey Form (Russian)" },
               { type: "image", src: "/survey-form-submit.png", alt: "Survey Submission" },
             ]}
+            techStack={["Next.js", "Nginx", "i18n", "Tailwind CSS", "MongoDB"]}
           />
 
           <ProjectCard
@@ -70,6 +72,7 @@ export default function Home() {
               { type: "image", src: "/medeniyetekno-4.png", alt: "About Section" },
               { type: "image", src: "/medeniyetekno-5.png", alt: "Contact & Footer" },
             ]}
+            techStack={["Next.js", "TypeScript", "Tailwind CSS", "MongoDB", "Vercel"]}
           />
 
           <ProjectCard
@@ -78,17 +81,25 @@ export default function Home() {
             media={[
               { type: "video", src: "EMAIL_CLIENT_TANITIM.mp4" },
             ]}
+            techStack={["Java", "JavaFX", "JavaMail API", "IMAP/SMTP"]}
           />
 
           <ProjectCard
             title="VİRTUAL TRADE"
             status="On Going..."
-            description="My virtual trade project is a web-based application designed to simulate cryptocurrency trading. It allows users to buy and sell virtual assets using a simulated USD balance. The platform features real-time price updates for various cryptocurrencies, providing users with an immersive experience as they make decisions based on market fluctuations. The project includes a secure user authentication system, a dynamic portfolio tracking feature, and a seamless transaction process that updates both the user's balance and portfolio in real-time. By leveraging technologies such as Next.js, Node.js, and MongoDB, the application offers a smooth, intuitive interface while handling backend operations like data storage and retrieval efficiently. This project is a valuable learning experience in both front-end and back-end development, with a focus on building secure and scalable web applications."
+            description= {<> 
+            My virtual trade project is a web-based application designed to simulate cryptocurrency trading. It allows users to buy and sell virtual assets using a simulated USD balance. The platform features real-time price updates for various cryptocurrencies, providing users with an immersive experience as they make decisions based on market fluctuations. The project includes a secure user authentication system, a dynamic portfolio tracking feature, and a seamless transaction process that updates both the user's balance and portfolio in real-time. By leveraging technologies such as Next.js, Node.js, and MongoDB, the application offers a smooth, intuitive interface while handling backend operations like data storage and retrieval efficiently. This project is a valuable learning experience in both front-end and back-end development, with a focus on building secure and scalable web applications.
+            <br /><br />
+            <a href="https://vtrade.bupropious.xyz/" target="_blank" rel="noopener noreferrer" className="text-white underline hover:text-gray-300 transition-colors">
+              Visit Website
+            </a>
+            </>}
             media={[
               { type: "image", src: "/trade-landing.png", alt: "Modern Landing Page" },
               { type: "image", src: "/trade-dashboard.png", alt: "Crypto Dashboard Grid" },
               { type: "image", src: "/trade-buysell.png", alt: "Trading Interface Detail" },
             ]}
+            techStack={["Next.js", "Node.js", "PostgreSQL", "Docker", "Drizzle ORM", "Tailwind CSS", "Nginx", "Cloudflare"]}
           />
 
           <ProjectCard
@@ -98,6 +109,7 @@ export default function Home() {
             media={[
               { type: "image", src: "/ios-trade-mockup.png", alt: "iOS Trading App" },
             ]}
+            techStack={["Swift", "SwiftUI", "Combine", "iOS SDK"]}
           />
         </div>
       </div>

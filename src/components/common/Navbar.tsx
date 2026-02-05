@@ -61,7 +61,7 @@ export default function Navbar() {
 
             {/* Virtual Trade Link (Featured - Architectural Button) */}
              <Link
-              href="/trade"
+              href="https://vtrade.bupropious.xyz/"
               className="ml-4 px-5 py-2 bg-[var(--foreground)] text-[var(--background-start)] text-xs font-bold uppercase tracking-wider rounded-none hover:bg-[var(--primary)] hover:text-white transition-colors"
             >
               Virtual Trade
@@ -98,7 +98,7 @@ export default function Navbar() {
             </Link>
           ))}
            <Link
-            href="/trade"
+            href="https://vtrade.bupropious.xyz/"
             onClick={() => setIsOpen(false)}
             className="flex items-center justify-between px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white"
           >

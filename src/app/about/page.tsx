@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Code2, Cpu, Globe, GraduationCap, Laptop } from "lucide-react";
+import { Code2, Cpu, Globe, GraduationCap, Laptop, Briefcase } from "lucide-react";
 
 export default function About() {
   const skills = [
@@ -109,6 +109,63 @@ export default function About() {
               <br /><br />
               I&apos;m building a web platform for <span className="text-[var(--foreground)] border-b border-[#555]">Virtual Trade</span>, developing an <span className="text-[var(--foreground)] border-b border-[#555]">AI Orchestrator</span> focused on system-level coordination, and actively working on the mobile version of <span className="text-[var(--foreground)] border-b border-[#555]">Splitable</span>.
             </p>
+          </div>
+
+          {/* Career Journey */}
+          <div className="space-y-8 border-t border-[#333] pt-12">
+            <h3 className="text-sm font-bold uppercase tracking-widest text-[#666] flex items-center gap-3">
+              <Briefcase className="w-4 h-4 text-[var(--primary)]" />
+              Career Journey
+            </h3>
+            
+            <div className="space-y-12">
+              {/* Experience Item 1 - Fuyabe Software */}
+              <div className="relative pl-8 border-l border-[#333] hover:border-[var(--primary)] transition-colors duration-300 group">
+                 <div className="absolute -left-[5px] top-0 w-2.5 h-2.5 bg-[#1a1a1a] border border-[#333] group-hover:border-[var(--primary)] group-hover:bg-[var(--primary)] transition-all duration-300 rotate-45"></div>
+                 
+                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+                    <h4 className="text-xl font-medium text-[var(--foreground)]">FULL-STACK DEVELOPER</h4>
+                    <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest mt-1 sm:mt-0">05.2025 — 02.2026</span>
+                 </div>
+                 
+                 <div className="text-[var(--primary)] text-sm font-bold uppercase tracking-wide mb-4">Fuyabe Software - Istanbul, Turkiye</div>
+                 
+                 <ul className="text-neutral-400 leading-relaxed font-light text-lg list-disc pl-4 space-y-2 marker:text-[var(--primary)]">
+                  <li>Built backend APIs with rate limiting and pagination to improve stability and predictable performance.</li>
+                  <li>Implemented email/SMS notifications to automate key workflows and reduce manual operational steps.</li>
+                  <li>Standardized API responses and integrated services with the frontend for consistent end-to-end behavior.</li>
+                  <li>Implemented Google OAuth login flows and aligned authentication behavior across frontend and backend.</li>
+                  <li>Set up and maintained CI/CD pipelines; added basic integration checks for critical frontend-to-API flows.</li>
+                  <li>Implemented CDN-based asset delivery and improved static/media distribution performance.</li>
+                  <li>Owned production delivery with PM2 and Nginx, improving reliability and maintainability, including a standalone SMS service.</li>
+                  <li>
+                    Tech stack: Bun, Hono, Next.js, TailwindCSS, Sequelize, Drizzle, PostgreSQL.
+                  </li>
+                </ul>
+              </div>
+
+               {/* Experience Item 2 - MedeniyeTekno */}
+               <div className="relative pl-8 border-l border-[#333] hover:border-[var(--primary)] transition-colors duration-300 group">
+                 <div className="absolute -left-[5px] top-0 w-2.5 h-2.5 bg-[#1a1a1a] border border-[#333] group-hover:border-[var(--primary)] group-hover:bg-[var(--primary)] transition-all duration-300 rotate-45"></div>
+                 
+                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+                    <h4 className="text-xl font-medium text-[var(--foreground)]">EVENT PLANNER</h4>
+                    <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest mt-1 sm:mt-0">09.2024 — 10.2025</span>
+                 </div>
+                 
+                 <div className="text-[var(--primary)] text-sm font-bold uppercase tracking-wide mb-4">MedeniyeTekno - Istanbul Medeniyet University Technology and Innovation Community</div>
+                 
+                 <ul className="text-neutral-400 leading-relaxed font-light text-lg list-disc pl-4 space-y-2 marker:text-[var(--primary)]">
+                   <li>Organization and planning events</li>
+                   <li>
+                     Contribution for developing community website:{" "}
+                     <a href="https://medeniyetekno.vercel.app" target="_blank" rel="noopener noreferrer" className="text-[var(--primary)] hover:underline">
+                       medeniyetekno.vercel.app
+                     </a>
+                   </li>
+                 </ul>
+              </div>
+            </div>
           </div>
 
           {/* Beyond the Code */}

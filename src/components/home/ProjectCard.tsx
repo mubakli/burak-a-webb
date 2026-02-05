@@ -7,6 +7,7 @@ interface ProjectCardProps {
   videoSrc?: string;
   status?: string;
   media?: MediaItem[];
+  techStack?: string[];
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -15,6 +16,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   videoSrc,
   status,
   media,
+  techStack,
 }) => {
   // Convert legacy videoSrc to media format if provided
   const mediaItems: MediaItem[] = media || (videoSrc ? [{ type: "video", src: videoSrc }] : []);
@@ -40,6 +42,20 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               {title}
             </h3>
            </div>
+           
+           {/* Tech Stack Badges */}
+           {techStack && techStack.length > 0 && (
+             <div className="flex flex-wrap gap-2 mb-6">
+               {techStack.map((tech) => (
+                 <span 
+                   key={tech} 
+                   className="px-3 py-1 text-[10px] uppercase tracking-widest border border-white/10 text-neutral-400 rounded-full hover:border-[var(--primary)] hover:text-[var(--primary)] transition-colors duration-300"
+                 >
+                   {tech}
+                 </span>
+               ))}
+             </div>
+           )}
         </div>
         
         <div className="text-neutral-400 leading-relaxed text-base font-light">
