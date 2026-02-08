@@ -71,7 +71,7 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({ items, autoPlay = false }) 
                   e.stopPropagation();
                   prevSlide();
                 }}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-sm hover:scale-110"
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-sm hover:scale-110 z-10"
                 aria-label="Previous"
               >
                 <ChevronLeft size={24} />
@@ -81,7 +81,7 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({ items, autoPlay = false }) 
                   e.stopPropagation();
                   nextSlide();
                 }}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-sm hover:scale-110"
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-sm hover:scale-110 z-10"
                 aria-label="Next"
               >
                 <ChevronRight size={24} />
@@ -104,7 +104,7 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({ items, autoPlay = false }) 
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border transition-all duration-300 ${
+                className={`relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border transition-all duration-300 z-10 ${
                   index === currentIndex
                     ? "border-white scale-105 opacity-100 ring-1 ring-white/20"
                     : "border-transparent hover:border-white/40 opacity-50 hover:opacity-100"

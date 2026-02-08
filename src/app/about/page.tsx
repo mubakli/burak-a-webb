@@ -4,8 +4,9 @@ import { Code2, Cpu, Globe, GraduationCap, Laptop, Briefcase } from "lucide-reac
 export default function About() {
   const skills = [
     "JavaScript", "TypeScript", "React.js", "Next.js", 
-    "Node.js", "Java", "Python", "SQL", "PostgreSQL", "Drizzle ORM",
-    "Tailwind CSS", "Git", "Bun", "Hono", "Nginx", "Expo.js", "React Native"
+    "Node.js", "Java", "Python", "SQL", "PostgreSQL", "MongoDB", "Drizzle ORM",
+    "Tailwind CSS", "Git", "Docker", "Bun", "Hono", "Express.js", "Nginx", "Cloudflare",
+    "Expo.js", "React Native", "Swift", "SwiftUI"
   ];
 
   return (

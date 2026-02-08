@@ -18,6 +18,26 @@ export default function Home() {
         </div>
 
         <div className="space-y-8">
+            <ProjectCard
+            title="VİRTUAL TRADE"
+            status="Live"
+            description={<>
+            VTrade Protocol is a web-based platform designed to simulate cryptocurrency trading. It allows users to buy and sell virtual assets using a simulated USD balance. The platform features real-time price updates for various cryptocurrencies, providing an immersive experience for making decisions based on market fluctuations. It includes a secure user authentication system, dynamic portfolio tracking, and a seamless transaction process that updates balances and portfolios in real-time. Built with Next.js, Node.js, and **PostgreSQL (using Drizzle ORM)**, the application offers a smooth, intuitive interface while handling backend operations efficiently. This project demonstrates full-stack expertise in building secure and scalable financial applications.
+            <br /><br />
+            <a href="https://vtrade.bupropious.xyz/" target="_blank" rel="noopener noreferrer" className="text-white underline hover:text-gray-300 transition-colors">
+              Visit Website
+            </a>
+            </>}
+            media={[
+              { type: "image", src: "/projects/vtrade/image-1.png", alt: "Virtual Trade - Image 1" },
+              { type: "image", src: "/projects/vtrade/image-2.png", alt: "Virtual Trade - Image 2" },
+              { type: "image", src: "/projects/vtrade/image-3.png", alt: "Virtual Trade - Image 3" },
+              { type: "image", src: "/projects/vtrade/image-4.png", alt: "Virtual Trade - Image 4" },
+              { type: "image", src: "/projects/vtrade/image-5.png", alt: "Virtual Trade - Image 5" },
+            ]}
+            techStack={["Next.js", "Node.js", "PostgreSQL", "Docker", "Drizzle ORM", "Tailwind CSS", "Nginx", "Cloudflare"]}
+          />
+
           <ProjectCard
             title="SPLİTABLE"
             description={
@@ -82,24 +102,6 @@ export default function Home() {
               { type: "video", src: "EMAIL_CLIENT_TANITIM.mp4" },
             ]}
             techStack={["Java", "JavaFX", "JavaMail API", "IMAP/SMTP"]}
-          />
-
-          <ProjectCard
-            title="VİRTUAL TRADE"
-            status="On Going..."
-            description= {<> 
-            My virtual trade project is a web-based application designed to simulate cryptocurrency trading. It allows users to buy and sell virtual assets using a simulated USD balance. The platform features real-time price updates for various cryptocurrencies, providing users with an immersive experience as they make decisions based on market fluctuations. The project includes a secure user authentication system, a dynamic portfolio tracking feature, and a seamless transaction process that updates both the user&apos;s balance and portfolio in real-time. By leveraging technologies such as Next.js, Node.js, and MongoDB, the application offers a smooth, intuitive interface while handling backend operations like data storage and retrieval efficiently. This project is a valuable learning experience in both front-end and back-end development, with a focus on building secure and scalable web applications.
-            <br /><br />
-            <a href="https://vtrade.bupropious.xyz/" target="_blank" rel="noopener noreferrer" className="text-white underline hover:text-gray-300 transition-colors">
-              Visit Website
-            </a>
-            </>}
-            media={[
-              { type: "image", src: "/trade-landing.png", alt: "Modern Landing Page" },
-              { type: "image", src: "/trade-dashboard.png", alt: "Crypto Dashboard Grid" },
-              { type: "image", src: "/trade-buysell.png", alt: "Trading Interface Detail" },
-            ]}
-            techStack={["Next.js", "Node.js", "PostgreSQL", "Docker", "Drizzle ORM", "Tailwind CSS", "Nginx", "Cloudflare"]}
           />
 
           <ProjectCard
