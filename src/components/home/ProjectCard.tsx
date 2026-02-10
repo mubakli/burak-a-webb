@@ -8,6 +8,7 @@ interface ProjectCardProps {
   status?: string;
   media?: MediaItem[];
   techStack?: string[];
+  aspectRatio?: "video" | "portrait";
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -17,6 +18,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   status,
   media,
   techStack,
+  aspectRatio = "video",
 }) => {
   // Convert legacy videoSrc to media format if provided
   const mediaItems: MediaItem[] = media || (videoSrc ? [{ type: "video", src: videoSrc }] : []);
@@ -69,7 +71,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <div className="bg-[#1a1a1a] p-2 border border-[#333] transition-all duration-700 group-hover:border-[var(--primary)] group-hover:scale-[1.01]">
              {/* Sharp corners, no rounded-lg */}
              <div className="overflow-hidden relative"> 
-                <MediaGallery items={mediaItems} autoPlay={false} />
+                <MediaGallery items={mediaItems} autoPlay={false} aspectRatio={aspectRatio} />
              </div>
           </div>
         ) : (

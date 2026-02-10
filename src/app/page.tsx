@@ -105,13 +105,26 @@ export default function Home() {
           />
 
           <ProjectCard
-            title="VİRTUAL TRADE IOS - MOBILE VERSION"
-            status="On Going..."
-            description="This page will provide an interactive and risk-free platform for users to experience virtual trading. Whether you're learning how trading works or just testing strategies, you'll have a virtual balance to practice buying and selling items. Stay tuned as we work to bring you features like real-time market data, portfolio tracking, and advanced trading tools."
+            title="VİRTUAL TRADE MOBILE"
+            status="Live"
+            description={
+              <>
+                The mobile version of the Virtual Trade platform, built with **React Native** and **Expo.js**. It shares the same robust backend as the web version, providing a seamless cross-platform experience. Users can track their portfolios, monitor real-time market data, and execute virtual trades on the go. The application features a premium dark UI with smooth transitions, biometric-ready authentication, and real-time balance updates.
+                <br /><br />
+                <span className="text-gray-400 font-mono text-xs uppercase tracking-widest">
+                  Integrated with VTrade Web Backend
+                </span>
+              </>
+            }
             media={[
-              { type: "image", src: "/ios-trade-mockup.png", alt: "iOS Trading App" },
+              { type: "image", src: "/projects/vtrade-mobile/login.png", alt: "VTrade Mobile - Login" },
+              { type: "image", src: "/projects/vtrade-mobile/home.png", alt: "VTrade Mobile - Dashboard" },
+              { type: "image", src: "/projects/vtrade-mobile/market.png", alt: "VTrade Mobile - Market" },
+              { type: "image", src: "/projects/vtrade-mobile/trade.png", alt: "VTrade Mobile - Trade" },
+              { type: "image", src: "/projects/vtrade-mobile/profile.png", alt: "VTrade Mobile - Profile" },
             ]}
-            techStack={["Swift", "SwiftUI", "Combine", "iOS SDK"]}
+            techStack={["React Native", "Expo.js", "TypeScript", "Node.js", "PostgreSQL", "Drizzle ORM"]}
+            aspectRatio="portrait"
           />
         </div>
       </div>
