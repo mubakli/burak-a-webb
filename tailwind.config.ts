@@ -25,6 +25,10 @@ export default {
         claret: "#7F1734",
         background: "var(--background)",
         foreground: "var(--foreground)",
+        pink: {
+          DEFAULT: "#FF69B4",
+          dark: "#C2185B",
+        },
       },
     },
   },
