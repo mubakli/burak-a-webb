@@ -69,4 +69,14 @@ html {
   color: #fff;
 }
 
+/* Virtual Trade Button - Pink Styles */
+.virtual-trade-btn {
+  background-color: #FF69B4;
+  color: #fff;
+  transition: background-color 0.2s;
+}
 
+.virtual-trade-btn:hover,
+.virtual-trade-btn:focus {
+  background-color: #C71585;
+}
