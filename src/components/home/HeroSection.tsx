@@ -80,7 +80,7 @@ const HeroSection = () => {
         {/* CTA Buttons - Sharp & Architectural */}
         <div className="flex flex-col sm:flex-row gap-6 items-start">
           <Link
-            href="/#scrollTo"
+            href="/projects"
             className="group px-8 py-5 bg-[var(--primary)] text-white font-bold rounded-none flex items-center justify-center gap-3 hover:bg-[var(--primary-dark)] transition-colors tracking-wide"
           >
             VIEW PROJECTS
