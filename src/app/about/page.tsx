@@ -1,12 +1,13 @@
 import Image from "next/image";
-import { Code2, Cpu, Globe, GraduationCap, Laptop, Briefcase } from "lucide-react";
+import { Briefcase, Code2, Cpu, Globe, GraduationCap } from "lucide-react";
 
 export default function About() {
   const skills = [
-    "JavaScript", "TypeScript", "React.js", "Next.js", 
-    "Node.js", "Java", "Python", "SQL", "PostgreSQL", "MongoDB", "Drizzle ORM",
-    "Tailwind CSS", "Git", "Docker", "Bun", "Hono", "Express.js", "Nginx", "Cloudflare",
-    "Expo.js", "React Native", "Swift", "SwiftUI"
+    "C#", "TypeScript", "JavaScript", "Java", "Go", "SQL",
+    "ASP.NET Core", "Spring Boot", "Node.js", "Bun", "Hono", "REST APIs",
+    "Entity Framework Core", "Prisma", "Sequelize", "Zod", "React", "Next.js",
+    "React Native", "Expo", "Tailwind CSS", "PostgreSQL", "MongoDB", "Docker",
+    "Nginx", "PM2", "Linux", "Git"
   ];
 
   return (
@@ -36,7 +37,7 @@ export default function About() {
           <div className="space-y-8 border-l border-[#333] pl-6">
             <div className="flex flex-col space-y-1 group">
               <div className="text-[var(--primary)] mb-1">
-                <GraduationCap className="w-5 h-5 stroke-1" />
+                <Briefcase className="w-5 h-5 stroke-1" />
               </div>
               <span className="text-xs font-bold uppercase tracking-widest text-[#666]">Role</span>
               <span className="text-sm font-medium text-[var(--foreground)]">Full-Stack Developer</span>
@@ -52,10 +53,11 @@ export default function About() {
 
             <div className="flex flex-col space-y-1 group">
                <div className="text-[var(--primary)] mb-1">
-                <Laptop className="w-5 h-5 stroke-1" />
+                 <GraduationCap className="w-5 h-5 stroke-1" />
                </div>
-               <span className="text-xs font-bold uppercase tracking-widest text-[#666]">Focus</span>
-               <span className="text-sm font-medium text-[var(--foreground)]">Web Development</span>
+               <span className="text-xs font-bold uppercase tracking-widest text-[#666]">Education</span>
+               <span className="text-sm font-medium text-[var(--foreground)]">B.Sc. Computer Engineering</span>
+               <span className="text-xs text-neutral-500">Expected 2027</span>
             </div>
           </div>
         </div>
@@ -65,19 +67,19 @@ export default function About() {
           {/* Bio - Editorial Layout */}
           <div className="space-y-8 text-xl md:text-2xl text-[var(--foreground)] leading-relaxed font-light">
             <p className="indent-12">
-              Hi! The person on the left is me — and the old Macintosh I&apos;m pointing at is a small symbol of where curiosity and engineering meet.
+              Hi! The person on the left is me, and the old Macintosh I&apos;m pointing at is a small symbol of where curiosity and engineering meet.
             </p>
             <p className="text-neutral-500 text-lg md:text-xl">
-              I&apos;m a third-year Computer Engineering student at <span className="text-[var(--primary)] border-b border-[var(--primary)] pb-0.5">Istanbul Medeniyet University</span>, focused on backend-oriented web development. I enjoy building systems from the inside out — designing APIs, modeling data, handling authentication flows, thinking about performance, scalability, and how everything connects behind the scenes.
+              I&apos;m a Full Stack Developer and Computer Engineering student at <span className="text-[var(--primary)] border-b border-[var(--primary)] pb-0.5">Istanbul Medeniyet University</span> with more than one year of hands-on experience building and maintaining production web applications.
             </p>
             <p className="text-neutral-500 text-lg md:text-xl">
-              I had the opportunity to work as a full-stack developer in a startup for about a year, which played a big role in my early growth. Instead of learning through endless tutorials, I learned by solving real problems, shipping features, breaking things, and fixing them again.
+              My primary experience is in the C#/.NET and TypeScript ecosystems, with working knowledge of Java, Spring Boot, and Go. I work across REST APIs, relational data modeling, frontend-backend integration, production debugging, and Linux-based deployment.
             </p>
             <p className="text-neutral-500 text-lg md:text-xl">
-              While I&apos;ve worked on the frontend when needed, my heart is definitely on the backend — especially where system design, data, and AI integrations come together.
+              I enjoy delivering features end to end, from interface and API design to business rules, database operations, and deployment. My strongest interest is still on the backend, especially where reliable APIs, data consistency, and maintainable architecture come together.
             </p>
             <p className="text-neutral-500 text-lg md:text-xl">
-              I&apos;m someone who genuinely enjoys pushing limits, learning continuously, and exploring how modern systems work under the hood. If there&apos;s a problem to understand or a system to improve, I&apos;m usually excited to dive in.
+              I aim to write software that remains clear as it grows, using SOLID principles, dependency injection, layered architecture, and service/repository patterns. I&apos;m most at home tracing difficult problems across the entire stack and turning them into practical, durable improvements.
             </p>
           </div>
 
@@ -103,12 +105,10 @@ export default function About() {
           <div className="p-8 bg-[#1a1a1a] border border-[#333] relative overflow-hidden group hover:border-[var(--primary)] transition-colors duration-500">
             <h3 className="text-lg font-medium text-[var(--foreground)] mb-4 flex items-center gap-2">
               <Cpu className="w-4 h-4 text-[var(--primary)]" />
-              Current Object
+              Current Focus
             </h3>
             <p className="text-neutral-400 leading-relaxed font-light text-lg">
-              I&apos;m currently working on multiple real-world projects in parallel.
-              <br /><br />
-              I&apos;m building a web platform for <span className="text-[var(--foreground)] border-b border-[#555]">Virtual Trade</span>, developing an <span className="text-[var(--foreground)] border-b border-[#555]">AI Orchestrator</span> focused on system-level coordination, and actively working on the mobile version of <span className="text-[var(--foreground)] border-b border-[#555]">Splitable</span>.
+              I&apos;m currently developing and maintaining production features at <span className="text-[var(--foreground)] border-b border-[#555]">Fabrikod</span> using C#, ASP.NET Core, Entity Framework Core, React, and relational databases. My work spans API, service, repository, database, and frontend layers, with a focus on dependable workflows, clear business rules, and root-cause debugging.
             </p>
           </div>
 
@@ -120,51 +120,47 @@ export default function About() {
             </h3>
             
             <div className="space-y-12">
-              {/* Experience Item 1 - Fuyabe Software */}
+              {/* Experience Item 1 - Fabrikod */}
               <div className="relative pl-8 border-l border-[#333] hover:border-[var(--primary)] transition-colors duration-300 group">
                  <div className="absolute -left-[5px] top-0 w-2.5 h-2.5 bg-[#1a1a1a] border border-[#333] group-hover:border-[var(--primary)] group-hover:bg-[var(--primary)] transition-all duration-300 rotate-45"></div>
                  
                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                    <h4 className="text-xl font-medium text-[var(--foreground)]">FULL-STACK DEVELOPER</h4>
-                    <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest mt-1 sm:mt-0">05.2025 — 02.2026</span>
-                 </div>
-                 
-                 <div className="text-[var(--primary)] text-sm font-bold uppercase tracking-wide mb-4">Fuyabe Software - Istanbul, Turkiye</div>
-                 
-                 <ul className="text-neutral-400 leading-relaxed font-light text-lg list-disc pl-4 space-y-2 marker:text-[var(--primary)]">
-                  <li>Built backend APIs with rate limiting and pagination to improve stability and predictable performance.</li>
-                  <li>Implemented email/SMS notifications to automate key workflows and reduce manual operational steps.</li>
-                  <li>Standardized API responses and integrated services with the frontend for consistent end-to-end behavior.</li>
-                  <li>Implemented Google OAuth login flows and aligned authentication behavior across frontend and backend.</li>
-                  <li>Set up and maintained CI/CD pipelines; added basic integration checks for critical frontend-to-API flows.</li>
-                  <li>Implemented CDN-based asset delivery and improved static/media distribution performance.</li>
-                  <li>Owned production delivery with PM2 and Nginx, improving reliability and maintainability, including a standalone SMS service.</li>
-                  <li>
-                    Tech stack: Bun, Hono, Next.js, TailwindCSS, Sequelize, Drizzle, PostgreSQL.
-                  </li>
-                </ul>
+                     <h4 className="text-xl font-medium text-[var(--foreground)]">FULL STACK DEVELOPER INTERN</h4>
+                    <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest mt-1 sm:mt-0">06.2026 - PRESENT</span>
+                  </div>
+
+                  <div className="text-[var(--primary)] text-sm font-bold uppercase tracking-wide mb-4">Fabrikod - Turkiye</div>
+
+                  <ul className="text-neutral-400 leading-relaxed font-light text-lg list-disc pl-4 space-y-2 marker:text-[var(--primary)]">
+                   <li>Develop and maintain production features for an enterprise web application across frontend, backend, and database layers.</li>
+                   <li>Build REST API endpoints with validation, business rules, exception handling, and consistent HTTP responses.</li>
+                   <li>Diagnose defects across controller, service, repository, database, and frontend layers by tracing root causes.</li>
+                   <li>Contribute to document-management workflows, statistics endpoints, file lifecycle operations, and soft-delete behavior.</li>
+                   <li>Refactor modules using SOLID principles, dependency injection, reusable services, and clear separation of concerns.</li>
+                   <li>Tech stack: C#, ASP.NET Core, Entity Framework Core, React, and relational databases.</li>
+                 </ul>
               </div>
 
-               {/* Experience Item 2 - MedeniyeTekno */}
+               {/* Experience Item 2 - Fuyabe Software */}
                <div className="relative pl-8 border-l border-[#333] hover:border-[var(--primary)] transition-colors duration-300 group">
                  <div className="absolute -left-[5px] top-0 w-2.5 h-2.5 bg-[#1a1a1a] border border-[#333] group-hover:border-[var(--primary)] group-hover:bg-[var(--primary)] transition-all duration-300 rotate-45"></div>
                  
                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                    <h4 className="text-xl font-medium text-[var(--foreground)]">EVENT PLANNER</h4>
-                    <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest mt-1 sm:mt-0">09.2024 — 10.2025</span>
-                 </div>
-                 
-                 <div className="text-[var(--primary)] text-sm font-bold uppercase tracking-wide mb-4">MedeniyeTekno - Istanbul Medeniyet University Technology and Innovation Community</div>
-                 
-                 <ul className="text-neutral-400 leading-relaxed font-light text-lg list-disc pl-4 space-y-2 marker:text-[var(--primary)]">
-                   <li>Organization and planning events</li>
-                   <li>
-                     Contribution for developing community website:{" "}
-                     <a href="https://medeniyetekno.vercel.app" target="_blank" rel="noopener noreferrer" className="text-[var(--primary)] hover:underline">
-                       medeniyetekno.vercel.app
-                     </a>
-                   </li>
-                 </ul>
+                     <h4 className="text-xl font-medium text-[var(--foreground)]">FULL STACK DEVELOPER</h4>
+                    <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest mt-1 sm:mt-0">05.2025 - 05.2026</span>
+                  </div>
+
+                  <div className="text-[var(--primary)] text-sm font-bold uppercase tracking-wide mb-4">Fuyabe Software - Istanbul, Turkiye</div>
+
+                  <ul className="text-neutral-400 leading-relaxed font-light text-lg list-disc pl-4 space-y-2 marker:text-[var(--primary)]">
+                    <li>Contributed to a production university preference and advisor platform with role-based workflows.</li>
+                    <li>Designed REST APIs for authentication, authorization, validation, filtering, pagination, and workflow management.</li>
+                    <li>Built responsive interfaces, administrative dashboards, data tables, forms, and end-to-end user flows.</li>
+                    <li>Implemented complex preference-list rules, large-dataset filtering, and Excel export workflows.</li>
+                    <li>Integrated AI-assisted analysis, OTP, email, and SMS flows with request tracking, rate limiting, and error handling.</li>
+                    <li>Deployed and troubleshot applications on Linux using Docker, PM2, Nginx, and VPS environments.</li>
+                    <li>Tech stack: Bun, Hono, Next.js, React, PostgreSQL, Prisma, Sequelize, and Zod.</li>
+                  </ul>
               </div>
             </div>
           </div>
