@@ -36,11 +36,15 @@ export default function BuySell({ crypto, price }: BuySellProps) {
   );
 
   useEffect(() => {
-    const storedUserId = sessionStorage.getItem("userId");
-    if (storedUserId) {
-      setUserId(storedUserId);
-      fetchUserData(storedUserId);
-    }
+    const sessionLoad = window.setTimeout(() => {
+      const storedUserId = sessionStorage.getItem("userId");
+      if (storedUserId) {
+        setUserId(storedUserId);
+        fetchUserData(storedUserId);
+      }
+    }, 0);
+
+    return () => window.clearTimeout(sessionLoad);
   }, [fetchUserData]);
 
   const handleSelection = (action: "buy" | "sell") => {

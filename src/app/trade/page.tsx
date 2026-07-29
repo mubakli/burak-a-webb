@@ -14,12 +14,12 @@ export default function Trade() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check for existing session
-    const storedUserId = sessionStorage.getItem("userId");
-    if (storedUserId) {
-      setIsAuthenticated(true);
-    }
-    setLoading(false);
+    const sessionCheck = window.setTimeout(() => {
+      setIsAuthenticated(Boolean(sessionStorage.getItem("userId")));
+      setLoading(false);
+    }, 0);
+
+    return () => window.clearTimeout(sessionCheck);
   }, []);
 
   const handleSignInSubmit = async (email: string, password: string) => {
