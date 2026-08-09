@@ -111,6 +111,7 @@ export default function Home() {
               alt="Burak smiling beside a collection of vintage computers"
               fill
               priority
+              unoptimized
               sizes="(max-width: 820px) 90vw, 38vw"
             />
           </figure>

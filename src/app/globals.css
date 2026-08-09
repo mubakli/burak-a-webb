@@ -1738,13 +1738,16 @@ main {
 .home-hero-portrait {
   position: relative;
   z-index: 1;
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 0.76;
   align-self: center;
 }
 
 .home-hero-portrait figure {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 0.76;
+  position: absolute;
+  inset: 0;
+  width: auto;
   margin: 0;
   overflow: hidden;
   background: var(--ink-soft);
@@ -3745,7 +3748,8 @@ main {
   }
 
   .home-hero-portrait {
-    max-width: 94%;
+    width: 94%;
+    max-width: none;
     margin-inline: auto;
   }
 }
