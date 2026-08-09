@@ -1,112 +1,80 @@
 "use client";
-import { useState, useEffect } from "react";
+
+import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { ArrowUpRight, Download, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { siteConfig } from "@/data/portfolio";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const navLinks = [
     { name: "About", href: "/about" },
-    { name: "Projects", href: "/projects" },
-    { name: "Contact", href: "/contact" },
+    { name: "Work", href: "/#selected-work" },
+    { name: "Beyond", href: "/#off-screen" },
+    { name: "Experience", href: "/experience" },
+    { name: "Archive", href: "/projects" },
   ];
 
-  return (
-    <nav
-      className={`fixed w-full z-50 transition-all duration-300 border-b ${
-        scrolled || isOpen
-          ? "bg-[var(--background-start)]/95 backdrop-blur-md border-[#333]" 
-          : "bg-transparent border-transparent"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          {/* Logo - Copper Accent */}
-          <div className="flex-shrink-0">
-            <Link 
-              href="/" 
-              className="text-xl font-bold text-[var(--foreground)] tracking-tight hover:text-[var(--primary)] transition-colors"
-            >
-              BuW<span className="text-[var(--primary)]">.</span>
-            </Link>
-          </div>
+  const isActive = (href: string) =>
+    pathname === href || (href.startsWith("/#selected-work") && pathname.startsWith("/work/"));
 
-          {/* Desktop Navigation - Architectural Typography */}
-          <div className="hidden md:flex items-center gap-8">
+  return (
+    <header className="site-header">
+      <nav className="shell nav-shell" aria-label="Primary navigation">
+          <Link href="/" className="brand" aria-label="Burak Asarcikli, home">
+            <span>B/A</span>
+            <span className="brand-copy">Burak Asarcikli <small>Developer / Curious mind</small></span>
+          </Link>
+
+          <div className="desktop-nav">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className={`text-xs font-semibold uppercase tracking-widest transition-colors ${
-                  pathname === link.href 
-                    ? "text-[var(--primary)]" 
-                    : "text-neutral-400 hover:text-[var(--foreground)]"
-                }`}
+                className={isActive(link.href) ? "active" : undefined}
               >
                 {link.name}
               </Link>
             ))}
-
-            {/* Virtual Trade Link (Featured - Architectural Button) */}
-             <Link
-              href="https://vtrade.bupropious.xyz/"
-              className="ml-4 px-5 py-2 bg-[var(--foreground)] text-[var(--background-start)] text-xs font-bold uppercase tracking-wider rounded-none hover:bg-[var(--primary)] hover:text-white transition-colors"
-            >
-              Virtual Trade
+            <Link className="nav-contact" href="/contact">
+              Let&apos;s talk <ArrowUpRight aria-hidden="true" size={14} />
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-gray-300 hover:text-white focus:outline-none transition-colors"
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
-      </div>
+          <button
+            type="button"
+            className="menu-button"
+            onClick={() => setIsOpen((open) => !open)}
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
+            aria-label={isOpen ? "Close navigation" : "Open navigation"}
+          >
+            {isOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+          </button>
+      </nav>
 
-      {/* Mobile Navigation */}
-      <div
-        className={`md:hidden absolute w-full bg-black border-b border-white/10 transition-all duration-300 ease-in-out overflow-hidden ${
-          isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-        }`}
-      >
-        <div className="px-4 py-6 space-y-4">
+      <div id="mobile-navigation" className="mobile-nav" data-open={isOpen}>
+        <div className="shell mobile-nav-inner">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               href={link.href}
               onClick={() => setIsOpen(false)}
-              className="block text-base font-medium text-gray-400 hover:text-white transition-colors"
             >
               {link.name}
             </Link>
           ))}
-           <Link
-            href="https://vtrade.bupropious.xyz/"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center justify-between px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white"
-          >
-            <span className="font-medium">Virtual Trade</span>
-            <ArrowRight size={16} className="text-gray-400" />
+          <Link href="/contact" onClick={() => setIsOpen(false)}>
+            Let&apos;s talk <ArrowUpRight aria-hidden="true" size={16} />
           </Link>
+          <a href={siteConfig.cv.english} download>
+            Download CV <Download aria-hidden="true" size={16} />
+          </a>
         </div>
       </div>
-    </nav>
+    </header>
   );
 }

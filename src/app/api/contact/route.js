@@ -1,43 +1,47 @@
 import nodemailer from "nodemailer";
 
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export async function POST(req) {
   try {
     const { name, email, message } = await req.json();
 
-    if (!name || !email || !message) {
-      return new Response(
-        JSON.stringify({ error: "All fields are required" }),
-        { status: 400 }
-      );
+    if (
+      typeof name !== "string" ||
+      typeof email !== "string" ||
+      typeof message !== "string" ||
+      !name.trim() ||
+      !emailPattern.test(email) ||
+      !message.trim() ||
+      name.length > 100 ||
+      email.length > 200 ||
+      message.length > 5000
+    ) {
+      return Response.json({ error: "Invalid form submission" }, { status: 400 });
     }
 
-    // Create a transporter object using SMTP
-    let transporter = nodemailer.createTransport({
-      service: "Gmail", // Use "Gmail", "Outlook", or your custom SMTP service
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      return Response.json({ error: "Contact service unavailable" }, { status: 503 });
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: "Gmail",
       auth: {
-        user: process.env.EMAIL_USER, // Your email address
-        pass: process.env.EMAIL_PASS, // Your email password or app password
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
 
-    // Email content
-    let mailOptions = {
-      from: email, // User's email (who filled out the form)
-      to: process.env.EMAIL_USER, // Your email to receive the messages
-      subject: `New Contact Form Submission from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\nMessage:\n${message}`,
-    };
-
-    // Send email
-    let info = await transporter.sendMail(mailOptions);
-
-    return new Response(JSON.stringify({ success: true, info }), {
-      status: 200,
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      replyTo: email.trim(),
+      to: process.env.EMAIL_USER,
+      subject: `Portfolio message from ${name.trim()}`,
+      text: `Name: ${name.trim()}\nEmail: ${email.trim()}\n\n${message.trim()}`,
     });
-  } catch (error) {
-    console.error("Error sending email:", error);
-    return new Response(JSON.stringify({ error: "Failed to send email" }), {
-      status: 500,
-    });
+
+    return Response.json({ success: true });
+  } catch {
+    return Response.json({ error: "Failed to send email" }, { status: 500 });
   }
 }
