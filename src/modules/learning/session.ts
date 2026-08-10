@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import { adaptiveLearningCatalog } from "@/data/adaptiveLearningCatalog";
 import {
   OWNER_LEARNER_ID,
+  connectLearningDatabase,
   defaultLearnerProfile,
   ensureLearningFoundation,
   getCatalogTopic,
@@ -586,12 +587,15 @@ export async function saveLearningSessionProgress(input: {
   if (!mongoose.isValidObjectId(input.sessionId)) {
     throw new LearningPersistenceError("Learning progress requires database persistence.");
   }
+  if (!(await connectLearningDatabase())) {
+    throw new LearningPersistenceError("Learning database is unavailable.");
+  }
 
   const session = await LearningSessionModel.findOne({
     _id: input.sessionId,
     learnerId,
   }).lean();
-  if (!session) throw new Error("Learning session was not found.");
+  if (!session) throw new LearningPersistenceError("Learning session was not found.");
   const record = session as unknown as LearningSessionRecord;
   const reviewAssignments = resolveReviewAssignments(record);
   if (
@@ -763,6 +767,7 @@ export async function saveFieldwork(input: {
 }) {
   const learnerId = input.learnerId ?? OWNER_LEARNER_ID;
   if (!mongoose.isValidObjectId(input.sessionId)) return { saved: false };
+  if (!(await connectLearningDatabase())) return { saved: false };
   const evidence = input.evidence?.trim().slice(0, 4_000) ?? "";
   if (input.status === "applied" && evidence.length < 40) {
     throw new LearningValidationError(
@@ -829,7 +834,7 @@ export async function saveFieldwork(input: {
 
   return {
     saved: true,
-    revision: result.fieldworkRevision,
+    revision: result.fieldworkRevision ?? 0,
     updatedAt: result.fieldworkUpdatedAt?.toISOString(),
   };
 }
@@ -844,6 +849,7 @@ export async function promoteAssignedSessionArticle(
   ) {
     return null;
   }
+  if (!(await connectLearningDatabase())) return null;
 
   const result = await LearningSessionModel.findOneAndUpdate(
     {
