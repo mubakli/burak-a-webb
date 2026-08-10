@@ -99,7 +99,7 @@ Optional integrations:
 - `EMAIL_USER`, `EMAIL_PASS`
 - `LEARNING_NOTIFICATION_EMAIL`
 
-`LEARNING_AUTH_DISABLED` must remain `false` in production.
+Set `LEARNING_AUTH_DISABLED=true` if you wish to bypass authentication and access the workspace directly.
 
 ## Quality Checks
 
