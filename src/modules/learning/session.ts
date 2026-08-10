@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import { adaptiveLearningCatalog } from "@/data/adaptiveLearningCatalog";
 import {
   OWNER_LEARNER_ID,
+  defaultLearnerProfile,
   ensureLearningFoundation,
   getCatalogTopic,
   getLearnerProfile,
@@ -11,6 +12,7 @@ import {
 import {
   ensureSharedArticle,
   getArticleVersionById,
+  previewArticle,
 } from "@/modules/learning/content";
 import {
   LearningSessionModel,
@@ -229,7 +231,9 @@ async function databaseBundleFromRecord(
     }).lean(),
     loadStats(record.learnerId),
   ]);
-  if (!topicRevision) {
+  const topicDefinition =
+    topicRevision?.definition ?? getCatalogTopic(record.topicSlug);
+  if (!topicDefinition) {
     throw new LearningPersistenceError(
       "Pinned learning topic revision is unavailable.",
     );
@@ -237,7 +241,7 @@ async function databaseBundleFromRecord(
   return {
     session: toSession(record),
     article,
-    topic: topicRevision.definition,
+    topic: topicDefinition,
     dueReviews: record.reviewAssignments ?? [],
     mastery: state ? toMastery(state as unknown as TopicStateRecord) : null,
     stats,
@@ -291,90 +295,106 @@ function resolveReviewAssignments(record: LearningSessionRecord): DueReview[] {
 export async function getTodayLearningSession(
   learnerId = OWNER_LEARNER_ID,
 ): Promise<LearningSessionBundle> {
-  const databaseReady = await ensureLearningFoundation();
-  const profile = await getLearnerProfile(learnerId);
+  const profile = await getLearnerProfile(learnerId).catch(() => defaultLearnerProfile);
   const localDate = getDateInTimeZone(profile.timeZone);
 
-  if (databaseReady) {
-    const existing = await LearningSessionModel.findOne({ learnerId, localDate }).lean();
-    if (existing) {
-      const record = existing as unknown as LearningSessionRecord & {
-        _id: mongoose.Types.ObjectId;
-      };
-      return databaseBundleFromRecord(record);
+  try {
+    const databaseReady = await ensureLearningFoundation();
+
+    if (databaseReady) {
+      const existing = await LearningSessionModel.findOne({ learnerId, localDate }).lean();
+      if (existing) {
+        const record = existing as unknown as LearningSessionRecord & {
+          _id: mongoose.Types.ObjectId;
+        };
+        try {
+          return await databaseBundleFromRecord(record);
+        } catch (error) {
+          console.error("Failed to load existing database session record:", error);
+        }
+      }
     }
-  }
 
-  const [states, recentSessions, freshSignals] = databaseReady
-    ? await Promise.all([
-        LearningTopicStateModel.find({ learnerId }).lean(),
-        LearningSessionModel.find({ learnerId })
-          .sort({ localDate: -1 })
-          .limit(12)
-          .select({ topicSlug: 1 })
-          .lean(),
-        getFreshTopicSignals(),
-      ])
-    : [[], [], []];
-  const selection = selectLearningTopic({
-    topics: adaptiveLearningCatalog,
-    profile,
-    states: states as unknown as TopicStateRecord[],
-    recentTopicSlugs: recentSessions.map((session) => session.topicSlug),
-    freshSignals,
-  });
-  const article = await ensureSharedArticle(selection.topic, selection.level);
+    const [states, recentSessions, freshSignals] = databaseReady
+      ? await Promise.all([
+          LearningTopicStateModel.find({ learnerId }).lean().catch(() => []),
+          LearningSessionModel.find({ learnerId })
+            .sort({ localDate: -1 })
+            .limit(12)
+            .select({ topicSlug: 1 })
+            .lean()
+            .catch(() => []),
+          getFreshTopicSignals().catch(() => []),
+        ])
+      : [[], [], []];
+    const selection = selectLearningTopic({
+      topics: adaptiveLearningCatalog,
+      profile,
+      states: states as unknown as TopicStateRecord[],
+      recentTopicSlugs: recentSessions.map((session) => session.topicSlug),
+      freshSignals,
+    });
+    const article = await ensureSharedArticle(selection.topic, selection.level);
 
-  if (!databaseReady || !mongoose.isValidObjectId(article.versionId)) {
+    if (!databaseReady || !mongoose.isValidObjectId(article.versionId)) {
+      return previewBundle(selection, article, profile);
+    }
+
+    const sessionKey = `${learnerId}:${localDate}`;
+    const assignedRevision = await LearningTopicRevisionModel.findOne({
+      topicSlug: selection.topic.slug,
+      revision: article.topicRevision,
+    }).lean().catch(() => null);
+    const assignedTopic = assignedRevision?.definition ?? selection.topic;
+    const reviewAssignments = await loadDueReviews(learnerId, assignedTopic.slug).catch(() => []);
+    const created = await LearningSessionModel.findOneAndUpdate(
+      { sessionKey },
+      {
+        $setOnInsert: {
+          sessionKey,
+          revision: 0,
+          learnerId,
+          localDate,
+          status: "assigned",
+          mode: profile.preferredMode,
+          currentStep: 0,
+          topicSlug: assignedTopic.slug,
+          topicTitle: assignedTopic.title,
+          topicDomain: assignedTopic.domain,
+          articleReuseKey: article.reuseKey,
+          articleVersionId: new mongoose.Types.ObjectId(article.versionId),
+          selectionScore: selection.score,
+          selectionReasons: selection.reasons,
+          reasonCodes: selection.reasonCodes,
+          rejectedTopicSlugs: [],
+          reviewAssignments,
+          responses: [],
+          fieldworkStatus: "not_started",
+          fieldworkRevision: 0,
+          fieldworkTask: assignedTopic.seed.labTask,
+          fieldworkDoneWhen: assignedTopic.seed.doneWhen,
+        },
+      },
+      { upsert: true, new: true, setDefaultsOnInsert: true },
+    ).lean();
+    const record = created as unknown as LearningSessionRecord & {
+      _id: mongoose.Types.ObjectId;
+    };
+    return databaseBundleFromRecord(record);
+  } catch (error) {
+    console.error("Failed to generate or persist learning session, falling back to preview:", error);
+    const selection = selectLearningTopic({
+      topics: adaptiveLearningCatalog,
+      profile,
+      states: [],
+      recentTopicSlugs: [],
+      freshSignals: [],
+    });
+    const article = await ensureSharedArticle(selection.topic, selection.level).catch(() =>
+      previewArticle(selection.topic, selection.level),
+    );
     return previewBundle(selection, article, profile);
   }
-
-  const sessionKey = `${learnerId}:${localDate}`;
-  const assignedRevision = await LearningTopicRevisionModel.findOne({
-    topicSlug: selection.topic.slug,
-    revision: article.topicRevision,
-  }).lean();
-  if (!assignedRevision) {
-    throw new LearningPersistenceError(
-      "Selected learning topic revision is unavailable.",
-    );
-  }
-  const assignedTopic = assignedRevision.definition;
-  const reviewAssignments = await loadDueReviews(learnerId, assignedTopic.slug);
-  const created = await LearningSessionModel.findOneAndUpdate(
-    { sessionKey },
-    {
-      $setOnInsert: {
-        sessionKey,
-        revision: 0,
-        learnerId,
-        localDate,
-        status: "assigned",
-        mode: profile.preferredMode,
-        currentStep: 0,
-        topicSlug: assignedTopic.slug,
-        topicTitle: assignedTopic.title,
-        topicDomain: assignedTopic.domain,
-        articleReuseKey: article.reuseKey,
-        articleVersionId: new mongoose.Types.ObjectId(article.versionId),
-        selectionScore: selection.score,
-        selectionReasons: selection.reasons,
-        reasonCodes: selection.reasonCodes,
-        rejectedTopicSlugs: [],
-        reviewAssignments,
-        responses: [],
-        fieldworkStatus: "not_started",
-        fieldworkRevision: 0,
-        fieldworkTask: assignedTopic.seed.labTask,
-        fieldworkDoneWhen: assignedTopic.seed.doneWhen,
-      },
-    },
-    { upsert: true, new: true, setDefaultsOnInsert: true },
-  ).lean();
-  const record = created as unknown as LearningSessionRecord & {
-    _id: mongoose.Types.ObjectId;
-  };
-  return databaseBundleFromRecord(record);
 }
 
 function responseValue(responses: LearningResponse[], stepId: string) {
@@ -954,80 +974,106 @@ export async function reselectTodayTopic(
 export async function getLearningAtlas(
   learnerId = OWNER_LEARNER_ID,
 ): Promise<AtlasTopic[]> {
-  const databaseReady = await ensureLearningFoundation();
-  const states = databaseReady
-    ? await LearningTopicStateModel.find({ learnerId }).lean()
-    : [];
-  const stateByTopic = new Map(
-    states.map((state) => [state.topicSlug, state as unknown as TopicStateRecord]),
-  );
+  try {
+    const databaseReady = await ensureLearningFoundation();
+    const states = databaseReady
+      ? await LearningTopicStateModel.find({ learnerId }).lean()
+      : [];
+    const stateByTopic = new Map(
+      states.map((state) => [state.topicSlug, state as unknown as TopicStateRecord]),
+    );
 
-  return adaptiveLearningCatalog.map((topic) => ({
-    slug: topic.slug,
-    title: topic.title,
-    domain: topic.domain,
-    category: topic.category,
-    difficulty: topic.difficulty,
-    summary: topic.summary,
-    prerequisites: [...topic.prerequisites],
-    related: [...topic.related],
-    patternWeight: topic.patternWeight,
-    mastery: stateByTopic.has(topic.slug)
-      ? toMastery(stateByTopic.get(topic.slug) as TopicStateRecord)
-      : null,
-  }));
+    return adaptiveLearningCatalog.map((topic) => ({
+      slug: topic.slug,
+      title: topic.title,
+      domain: topic.domain,
+      category: topic.category,
+      difficulty: topic.difficulty,
+      summary: topic.summary,
+      prerequisites: [...topic.prerequisites],
+      related: [...topic.related],
+      patternWeight: topic.patternWeight,
+      mastery: stateByTopic.has(topic.slug)
+        ? toMastery(stateByTopic.get(topic.slug) as TopicStateRecord)
+        : null,
+    }));
+  } catch (error) {
+    console.error("Failed to load learning atlas:", error);
+    return adaptiveLearningCatalog.map((topic) => ({
+      slug: topic.slug,
+      title: topic.title,
+      domain: topic.domain,
+      category: topic.category,
+      difficulty: topic.difficulty,
+      summary: topic.summary,
+      prerequisites: [...topic.prerequisites],
+      related: [...topic.related],
+      patternWeight: topic.patternWeight,
+      mastery: null,
+    }));
+  }
 }
 
 export async function getLearningNotebook(
   learnerId = OWNER_LEARNER_ID,
 ): Promise<NotebookEntry[]> {
-  if (!(await ensureLearningFoundation())) return [];
+  try {
+    if (!(await ensureLearningFoundation())) return [];
 
-  const sessions = await LearningSessionModel.find({ learnerId, status: "completed" })
-    .sort({ localDate: -1 })
-    .limit(50)
-    .lean();
+    const sessions = await LearningSessionModel.find({ learnerId, status: "completed" })
+      .sort({ localDate: -1 })
+      .limit(50)
+      .lean();
 
-  return sessions.map((session) => ({
-    id: session._id.toString(),
-    localDate: session.localDate,
-    topicSlug: session.topicSlug,
-    topicTitle: session.topicTitle,
-    status: session.status,
-    mode: session.mode,
-    selectionReasons: [...session.selectionReasons],
-    responses: session.responses.map((response) => ({ ...response })),
-    completedAt: session.completedAt?.toISOString(),
-    articleVersionId: session.articleVersionId.toString(),
-  }));
+    return sessions.map((session) => ({
+      id: session._id.toString(),
+      localDate: session.localDate,
+      topicSlug: session.topicSlug,
+      topicTitle: session.topicTitle,
+      status: session.status,
+      mode: session.mode,
+      selectionReasons: [...session.selectionReasons],
+      responses: session.responses.map((response) => ({ ...response })),
+      completedAt: session.completedAt?.toISOString(),
+      articleVersionId: session.articleVersionId.toString(),
+    }));
+  } catch (error) {
+    console.error("Failed to load learning notebook:", error);
+    return [];
+  }
 }
 
 export async function getFieldworkEntries(
   learnerId = OWNER_LEARNER_ID,
 ): Promise<FieldworkEntry[]> {
-  if (!(await ensureLearningFoundation())) return [];
+  try {
+    if (!(await ensureLearningFoundation())) return [];
 
-  const sessions = await LearningSessionModel.find({ learnerId, status: "completed" })
-    .sort({ localDate: -1 })
-    .limit(50)
-    .lean();
+    const sessions = await LearningSessionModel.find({ learnerId, status: "completed" })
+      .sort({ localDate: -1 })
+      .limit(50)
+      .lean();
 
-  return sessions.flatMap((session) => {
-    return [
-      {
-        sessionId: session._id.toString(),
-        topicSlug: session.topicSlug,
-        topicTitle: session.topicTitle,
-        domain: session.topicDomain as FieldworkEntry["domain"],
-        task: session.fieldworkTask ?? "Tarihsel saha görevi açıklaması mevcut değil.",
-        doneWhen:
-          session.fieldworkDoneWhen ?? "Kanıtı doğrulanabilir bir notla kaydet.",
-        status: session.fieldworkStatus,
-        immutable: session.fieldworkStatus === "applied",
-        revision: session.fieldworkRevision ?? 0,
-        evidence: session.fieldworkEvidence,
-        updatedAt: session.fieldworkUpdatedAt?.toISOString(),
-      },
-    ];
-  });
+    return sessions.flatMap((session) => {
+      return [
+        {
+          sessionId: session._id.toString(),
+          topicSlug: session.topicSlug,
+          topicTitle: session.topicTitle,
+          domain: session.topicDomain as FieldworkEntry["domain"],
+          task: session.fieldworkTask ?? "Tarihsel saha görevi açıklaması mevcut değil.",
+          doneWhen:
+            session.fieldworkDoneWhen ?? "Kanıtı doğrulanabilir bir notla kaydet.",
+          status: session.fieldworkStatus,
+          immutable: session.fieldworkStatus === "applied",
+          revision: session.fieldworkRevision ?? 0,
+          evidence: session.fieldworkEvidence,
+          updatedAt: session.fieldworkUpdatedAt?.toISOString(),
+        },
+      ];
+    });
+  } catch (error) {
+    console.error("Failed to load fieldwork entries:", error);
+    return [];
+  }
 }
