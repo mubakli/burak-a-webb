@@ -11,6 +11,7 @@ import {
   PEDAGOGY_VERSION,
   PROMPT_VERSION,
   connectLearningDatabase,
+  getCatalogTopic,
   getTopicRevisionHash,
 } from "@/modules/learning/catalog";
 import {
@@ -256,7 +257,7 @@ async function loadCitations(
   });
 }
 
-function previewArticle(topic: TopicDefinition, level: LearningLevel): LearningArticle {
+export function previewArticle(topic: TopicDefinition, level: LearningLevel): LearningArticle {
   const topicRevisionHash = getTopicRevisionHash(topic);
   const reuseKey = createArticleReuseKey({
     topicRevisionHash,
@@ -797,27 +798,34 @@ export async function getArticleVersionById(
   expectedTopicSlug: string,
   expectedReuseKey: string,
 ) {
+  const catalogTopic = getCatalogTopic(expectedTopicSlug);
   if (!mongoose.isValidObjectId(versionId) || !(await connectLearningDatabase())) {
+    if (catalogTopic) return ensureSharedArticle(catalogTopic, "intermediate");
     throw new Error("Pinned learning article storage is unavailable.");
   }
   const sharedArticle = await LearningSharedArticleModel.findOne({
     reuseKey: expectedReuseKey,
     topicSlug: expectedTopicSlug,
   }).lean();
-  if (!sharedArticle) throw new Error("Pinned learning article family is unavailable.");
 
-  const version = await LearningArticleVersionModel.findOne({
-    _id: versionId,
-    topicSlug: expectedTopicSlug,
-    reuseKey: expectedReuseKey,
-    topicRevision: sharedArticle.topicRevision,
-    locale: sharedArticle.locale,
-    level: sharedArticle.level,
-    "provenance.schemaVersion": sharedArticle.schemaVersion,
-    "provenance.pedagogyVersion": sharedArticle.pedagogyVersion,
-    status: { $ne: "retracted" },
-  }).lean();
-  if (!version) throw new Error("Pinned learning article is unavailable or retracted.");
+  const version = sharedArticle
+    ? await LearningArticleVersionModel.findOne({
+        _id: versionId,
+        topicSlug: expectedTopicSlug,
+        reuseKey: expectedReuseKey,
+        topicRevision: sharedArticle.topicRevision,
+        locale: sharedArticle.locale,
+        level: sharedArticle.level,
+        "provenance.schemaVersion": sharedArticle.schemaVersion,
+        "provenance.pedagogyVersion": sharedArticle.pedagogyVersion,
+        status: { $ne: "retracted" },
+      }).lean()
+    : null;
+
+  if (!version) {
+    if (catalogTopic) return ensureSharedArticle(catalogTopic, "intermediate");
+    throw new Error("Pinned learning article is unavailable or retracted.");
+  }
   const record = version as unknown as ArticleVersionRecord & {
     _id: mongoose.Types.ObjectId;
   };
