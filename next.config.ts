@@ -5,6 +5,13 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
+        source: "/learning/:path*",
+        headers: [
+          { key: "Cache-Control", value: "private, no-store" },
+          { key: "X-Robots-Tag", value: "noindex, nofollow" },
+        ],
+      },
+      {
         source: "/(.*)",
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },

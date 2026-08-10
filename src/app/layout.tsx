@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Navbar from "@/components/common/Navbar";
-import Footer from "@/components/common/Footer";
+import SiteFrame from "@/components/common/SiteFrame";
 import { siteConfig } from "@/data/portfolio";
 
 const geistSans = localFont({
@@ -62,12 +61,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        <a className="skip-link" href="#main-content">Skip to content</a>
-        <div className="site-frame">
-          <Navbar />
-          <main id="main-content">{children}</main>
-          <Footer />
-        </div>
+        <SiteFrame>{children}</SiteFrame>
       </body>
     </html>
   );
